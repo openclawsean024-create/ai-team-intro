@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 熱點情報助手</title>
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --bg-card: #1E293B;
+      --accent-purple: #A855F7;
+      --accent-blue: #3B82F6;
+      --accent-green: #22C55E;
+      --accent-orange: #F97316;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .header {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.15) 0%, transparent 60%),
+        var(--bg-dark);
+    }
+
+    .header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent-purple);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent-purple);
+      color: white;
+    }
+
+    .btn-primary:hover { background: #9333EA; }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { background: #334155; }
+
+    /* Intelligence Cards */
+    .intel-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .intel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .intel-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(168, 85, 247, 0.2);
+      color: var(--accent-purple);
+    }
+
+    .intel-category.agent { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); }
+    .intel-category.product { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+    .intel-category.tool { background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); }
+
+    .intel-score {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+
+    .intel-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .intel-summary {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .intel-section {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .intel-section-title {
+      font-size: 0.8rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .intel-section-content {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .intel-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .intel-source {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .intel-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .intel-link:hover { text-decoration: underline; }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>🤖 AI 熱點情報助手</h1>
+    <p>每日 09:00 精選 · 3-5 條</p>
+    <span class="badge">AI Agent · 應用產品 · 開發工具</span>
+  </header>
+
+  <div class="container">
+    <div class="controls">
+      <button class="btn btn-primary" onclick="fetchIntel()">🔄 重新整理</button>
+      <button class="btn btn-secondary" onclick="showSample()">📋 範例數據</button>
+    </div>
+
+    <div id="intelContainer">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>分析熱點中...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    AI 熱點情報助手 · 為何是機會 + 產品化建議
+  </footer>
+
+  <script>
+    const sampleIntel = [
+      {
+        category: "AI Agent",
+        title: "OpenAI Agent SDK 正式發布：企業級 AI 助手部署方案",
+        summary: "OpenAI 推出全新 Agent SDK，提供完整的工具調用、記憶體管理、工作流程編排能力。支援多代理協作和安全隔離，適合構建企業級 AI 助手。",
+        productization: "• 整合 CRM/ERP 系統自動化\n• 客戶服務 Agent 搭建\n• 內部知識庫問答系統\n• 程式碼審查助理",
+        opportunity: "企業 AI 助手市場規模預計 2027 年達 400 億美元，OpenAI Agent SDK 降低開發門檻，可快速構建垂直領域 Agent 服務。",
+        source: "OpenAI Blog",
+        score: 9.2,
+        url: "#"
+      },
+      {
+        category: "AI 應用",
+        title: "Notion AI 2.0：全面升級的生產力套件",
+        summary: "Notion 發布 AI 2.0，新增 AI 表格分析、自動化工作流、智慧提醒功能。月付費用戶突破 400 萬，ARR 突破 2 億美元。",
+        productization: "• 專案管理 AI 自動化\n• 會議紀錄智慧整理\n• 文件協作版本控制\n• 團隊知識庫建構",
+        opportunity: "生產力工具 AI 化是不可逆趨勢，Notion 以文檔為核心向外延伸的成功模式，可複製到其他垂直領域。",
+        source: "TechCrunch",
+        score: 8.5,
+        url: "#"
+      },
+      {
+        category: "開發工具",
+        title: "Cursor AI：AI 程式碼編輯器市佔率突破 30%",
+        summary: "基於 VS Code 的 AI 程式碼編輯器 Cursor 發布 0.3 版本，程式碼補全準確率提升 40%。已有超過 50 萬開發者使用。",
+        productization: "• 企業內部程式碼規範檢查\n• 自動化重構工具\n• Bug 預測與修復建議\n• 新人 onboarding 輔助",
+        opportunity: "AI 程式設計師工具市場爆發，Cursor 證明 AI First 的 IDE 可以顛覆傳統開發體驗。這是開發者工具的新標準。",
+        source: "The Verge",
+        score: 8.8,
+        url: "#"
+      },
+      {
+        category: "科技巨頭",
+        title: "Google Gemini Ultra 開放企業 API，定價競爭力強",
+        summary: "Google 宣布 Gemini Ultra 開放企業 API，定價比 GPT-4 低 60%。支援 1M Token 上下文，適合長文檔處理場景。",
+        productization: "• 法律文件分析系統\n• 醫療影像輔助診斷\n• 金融報告自動化\n• 長篇內容摘要服務",
+        opportunity: "Google 進入企業市場將加速 AI 應用落地，低價策略會讓更多中小型企業採用 AI 技術。",
+        source: "Wired",
+        score: 8.3,
+        url: "#"
+      },
+      {
+        category: "新創 VC",
+        title: "AI Agent 新創 Inflection AI 獲 6.5 億美元 B 輪",
+        summary: "Inflection AI 發布個人 AI 助手 Pi，定位為「第二個大腦」。投資人包括微軟、NVIDIA、Reid Hoffman。",
+        productization: "• 個人 AI 助理訂閱服務\n• 企業級 Pi for Work\n• 教育輔導 Agent\n• 心理健康陪伴 AI",
+        opportunity: "個人 AI 助手是下一個大規模應用場景，Inflection 證明「有溫度的 AI」需求強烈，訂閱制商業模式可行。",
+        source: "VentureBeat",
+        score: 8.6,
+        url: "#"
+      }
+    ];
+
+    function renderIntel(data) {
+      const container = document.getElementById('intelContainer');
+      
+      if (!data || data.length === 0) {
+        container.innerHTML = '<div class="loading"><p>尚無情報</p></div>';
+        return;
+      }
+
+      container.innerHTML = data.map((item, i) => {
+        const catClass = item.category === 'AI Agent' ? 'agent' : 
+                        item.category === 'AI 應用' ? 'product' : 'tool';
+        
+        return `
+          <article class="intel-card">
+            <div class="intel-header">
+              <span class="intel-category ${catClass}">${item.category}</span>
+              <span class="intel-score">⭐ ${item.score}</span>
+            </div>
+            
+            <h2 class="intel-title">${i+1}. ${item.title}</h2>
+            <p class="intel-summary">${item.summary}</p>
+            
+            <div class="intel-section">
+              <div class="intel-section-title">💡 產品化建議</div>
+              <div class="intel-section-content" style="white-space: pre-line;">${item.productization}</div>
+            </div>
+            
+            <div class="intel-section">
+              <div class="intel-section-title">🎯 為何是機會</div>
+              <div class="intel-section-content">${item.opportunity}</div>
+            </div>
+            
+            <div class="intel-footer">
+              <span class="intel-source">📡 來源：${item.source}</span>
+              <a href="${item.url}" class="intel-link" target="_blank">閱讀全文 →</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function showSample() {
+      renderIntel(sampleIntel);
+    }
+
+    function fetchIntel() {
+      const container = document.getElementById('intelContainer');
+      container.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>分析 AI 熱點中...</p>
+        </div>
+      `;
+      
+      setTimeout(() => {
+        showSample();
+      }, 1200);
+    }
+
+    // Init
+    fetchIntel();
+  </script>
+</body>
+</html>

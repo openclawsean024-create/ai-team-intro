@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>會議摘要機器人</title>
+  <style>
+    :root {
+      --primary: #0F172A;
+      --secondary: #8B5CF6;
+      --accent: #F97316;
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --bg-card: rgba(255,255,255,0.05);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      background: var(--primary);
+      color: var(--text-light);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--secondary);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(139,92,246,0.2);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.75rem;
+      color: var(--text-light);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #7c3aed;
+    }
+
+    #output {
+      display: none;
+      white-space: pre-wrap;
+      font-family: monospace;
+      line-height: 1.8;
+    }
+
+    .section-title {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    th { background: rgba(139,92,246,0.2); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 會議摘要機器人</h1>
+    
+    <div class="card">
+      <div class="row">
+        <div>
+          <label>📅 會議日期</label>
+          <input type="text" id="date" placeholder="2026/03/18">
+        </div>
+        <div>
+          <label>👥 參與者（用逗號分隔）</label>
+          <input type="text" id="participants" placeholder="小明, 小美, 老闆">
+        </div>
+      </div>
+      
+      <div style="margin-top: 1rem;">
+        <label>📌 會議主題</label>
+        <input type="text" id="topic" placeholder="Q2 產品開發會議">
+      </div>
+      
+      <div style="margin-top: 1rem;">
+        <label>📝 會議內容（筆記/重點）</label>
+        <textarea id="content" placeholder="1. 確認 Q2 產品路線圖
+2. 決定優先開發 AI 摘要功能
+3. 小明負責 UI 設計，下週完成
+4. 小美負責後端開發，三天後交付
+5. 確認採用新技術棧
+6. 需要追蹤市場趨勢
+7. 風險：時間緊迫
+8. 通過預算申請"></textarea>
+      </div>
+      
+      <div style="margin-top: 1.5rem;">
+        <button onclick="generateSummary()">🚀 生成摘要</button>
+      </div>
+    </div>
+    
+    <div class="card" id="outputCard" style="display:none;">
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script>
+    function generateSummary() {
+      const date = document.getElementById('date').value || '未指定';
+      const participants = document.getElementById('participants').value || '-';
+      const topic = document.getElementById('topic').value || '未指定';
+      const content = document.getElementById('content').value;
+      
+      if (!content.trim()) {
+        alert('請輸入會議內容');
+        return;
+      }
+      
+      const lines = content.split('\n').filter(l => l.trim());
+      
+      // 提取重點
+      const keywords = ['重要', '決定', '確認', '通過', '問題', '風險', '目標', '優先', '採用'];
+      const keyPoints = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.length > 5 && keywords.some(k => clean.includes(k))) {
+          keyPoints.push(clean);
+        }
+      });
+      
+      // 提取決策
+      const decisions = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('決定') || clean.includes('通過') || clean.includes('同意') || clean.includes('確認採用')) {
+          decisions.push({ item: clean, decision: '通過', owner: '-' });
+        }
+      });
+      
+      // 提取待辦
+      const todos = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('負責') || clean.includes('完成') || clean.includes('交付')) {
+          const ownerMatch = clean.match(/(\w+)負責/);
+          const deadlineMatch = clean.match(/(下週|三天後|\d+天|\d+\/\d+)/);
+          todos.push({
+            item: clean,
+            owner: ownerMatch ? ownerMatch[1] : '-',
+            deadline: deadlineMatch ? deadlineMatch[1] : '-'
+          });
+        }
+      });
+      
+      // 提取後續
+      const followUps = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('追蹤') || clean.includes('後續') || clean.includes('未來') || clean.includes('風險')) {
+          followUps.push(clean);
+        }
+      });
+      
+      // 輸出
+      let output = `📋 會議摘要\n`;
+      output += `══════════════════════════════════════\n`;
+      output += `📅 日期：${date}\n`;
+      output += `👥 參與者：${participants}\n`;
+      output += `📌 主題：${topic}\n`;
+      output += `──────────────────────────────────────\n`;
+      output += `🎯 重點摘要\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      const finalPoints = keyPoints.slice(0, 5);
+      if (finalPoints.length === 0) {
+        output += '（請手動輸入重點）\n';
+      } else {
+        finalPoints.forEach((p, i) => output += `${i+1}. ${p}\n`);
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `✅ 決策事項\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (decisions.length > 0) {
+        output += `| 項目 | 決定 | 負責人 |\n`;
+        output += `|------|------|--------|\n`;
+        decisions.forEach(d => output += `| ${d.item} | ${d.decision} | ${d.owner} |\n`);
+      } else {
+        output += `（無）\n`;
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `📌 待辦事項\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (todos.length > 0) {
+        output += `| 事項 | 負責人 | 期限 |\n`;
+        output += `|------|--------|------|\n`;
+        todos.forEach(t => output += `| ${t.item} | ${t.owner} | ${t.deadline} |\n`);
+      } else {
+        output += `（無）\n`;
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `🔭 後續行動\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (followUps.length > 0) {
+        followUps.forEach((f, i) => output += `${i+1}. ${f}\n`);
+      } else {
+        output += `持續追蹤相關進展\n`;
+      }
+      
+      output += `\n══════════════════════════════════════\n`;
+      output += `🤖 會議摘要機器人`;
+      
+      document.getElementById('output').textContent = output;
+      document.getElementById('outputCard').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 團隊 | 自我介紹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #8B5CF6;
+            --accent: #F97316;
+            --text-light: #F8FAFC;
+            --text-muted: #94A3B8;
+            --card-bg: #1E293B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Space Grotesk', sans-serif;
+            background: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero .accent-text {
+            color: var(--accent);
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .role-badge.dva { background: rgba(139, 92, 246, 0.2); color: var(--secondary); }
+        .role-badge.alan { background: rgba(249, 115, 22, 0.2); color: var(--accent); }
+        .role-badge.sophia { background: rgba(34, 211, 238, 0.2); color: #22D3EE; }
+
+        .quote {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .quote.dva { color: var(--secondary); }
+        .quote.alan { color: var(--accent); }
+        .quote.sophia { color: #22D3EE; }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .footer p {
+            font-size: 0.875rem;
+        }
+
+        .footer .heart {
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .team-card:nth-child(1) { animation-delay: 0.1s; }
+        .team-card:nth-child(2) { animation-delay: 0.2s; }
+        .team-card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .team-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>AI Agent 團隊</h1>
+            <p class="subtitle">
+                我們是<span class="accent-text">一群人在打造未來</span>。<br>
+                專業但有溫度 — 有人情味的未來公司
+            </p>
+        </header>
+
+        <main class="team-grid">
+            <!-- Dva -->
+            <article class="team-card">
+                <span class="role-badge dva">Coordinator</span>
+                <p class="quote dva">「混亂的終點，秩序的起點。」</p>
+                <p class="description">
+                    Dva 是團隊的樞紐。她能在是一片混亂中理出頭緒，精準把任務交給對的人。擅長跨部門協調、資源整合，確保每個環節都不掉線。有她在，複雜專案也能穩穩推進。
+                </p>
+            </article>
+
+            <!-- Alan -->
+            <article class="team-card">
+                <span class="role-badge alan">CTO</span>
+                <p class="quote alan">「程式碼是詩，硬體是身體，架構是靈魂。」</p>
+                <p class="description">
+                    Alan 是那種「凌晨三點還在優化演算法」的技術狂人。從系統架構到底層代码，他是團最強的技術大腦。別人說「這做不到」，他會說「給我三分鐘」。AI 開發的核心戰力。
+                </p>
+            </article>
+
+            <!-- Sophia -->
+            <article class="team-card">
+                <span class="role-badge sophia">CEO</span>
+                <p class="quote sophia">「未來不會自己到來，需要有人先說出它是什麼樣子。」</p>
+                <p class="description">
+                    Sophia 負責定義方向。她看趨勢、寫策略、講故事——把複雜的技術翻譯成令人信服的願景。市場策略、產品定位、對外溝通，都是她的戰場。負責讓團隊的作品被世界看見。
+                </p>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <p>Made with <span class="heart">♥</span> by AI Agent Team</p>
+        </footer>
+    </div>
+</body>
+</html>

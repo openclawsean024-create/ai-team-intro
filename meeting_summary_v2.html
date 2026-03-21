@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>會議摘要機器人 2.0</title>
+  <style>
+    :root {
+      --apple-black: #000000;
+      --apple-blue: #0071E3;
+      --apple-blue-hover: #0077ED;
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text-primary: #F5F5F7;
+      --text-secondary: #86868B;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+      background: var(--apple-black);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(0, 113, 227, 0.15) 0%, transparent 60%),
+        var(--apple-black);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #86868B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* Glass Card */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      animation: slideUp 0.6s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 1rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--apple-blue);
+      background: rgba(0, 113, 227, 0.1);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .row { grid-template-columns: 1fr; }
+    }
+
+    /* Upload Area */
+    .upload-area {
+      border: 2px dashed var(--glass-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 1rem;
+    }
+
+    .upload-area:hover {
+      border-color: var(--apple-blue);
+      background: rgba(0, 113, 227, 0.05);
+    }
+
+    .upload-area.dragover {
+      border-color: var(--apple-blue);
+      background: rgba(0, 113, 227, 0.1);
+    }
+
+    .upload-area .icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .upload-area p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .upload-area .formats {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    #fileInput { display: none; }
+
+    .file-name {
+      margin-top: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 113, 227, 0.2);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--apple-blue);
+      display: none;
+    }
+
+    /* Progress */
+    .progress-container {
+      display: none;
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--apple-blue);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--apple-blue);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background: var(--apple-blue-hover);
+      transform: scale(1.01);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Output */
+    #outputCard {
+      display: none;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .section-title {
+      color: var(--apple-blue);
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.5rem;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    th { 
+      color: var(--text-secondary); 
+      font-weight: 500;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>會議摘要 2.0</h1>
+    <p>支援語音轉文字，AI 驅動的智能會議助手</p>
+  </section>
+
+  <div class="container">
+    <div class="card">
+      <!-- 語音上傳 -->
+      <label>🎙️ 語音檔上傳（可選）</label>
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <div class="icon">🎵</div>
+        <p>點擊或拖曳檔案至此</p>
+        <p class="formats">支援 m4a, MP3, MP4, WAV</p>
+      </div>
+      <input type="file" id="fileInput" accept=".m4a,.mp3,.mp4,.wav,audio/*,video/*">
+      <div class="file-name" id="fileName"></div>
+      
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">處理中...</div>
+      </div>
+      
+      <div style="text-align: center; margin: 1rem 0; color: var(--text-secondary);">— 或手動輸入 —</div>
+      
+      <!-- 手動輸入 -->
+      <div class="row">
+        <div>
+          <label>📅 會議日期</label>
+          <input type="text" id="date" placeholder="2026/03/18">
+        </div>
+        <div>
+          <label>👥 參與者</label>
+          <input type="text" id="participants" placeholder="小明, 小美, 老闆">
+        </div>
+      </div>
+      
+      <div style="margin-top: 1rem;">
+        <label>📌 會議主題</label>
+        <input type="text" id="topic" placeholder="Q2 產品開發會議">
+      </div>
+      
+      <div style="margin-top: 1rem;">
+        <label>📝 會議內容</label>
+        <textarea id="content" placeholder="1. 確認 Q2 產品路線圖&#10;2. 決定優先開發 AI 摘要功能&#10;3. 小明負責 UI 設計，下週完成..."></textarea>
+      </div>
+      
+      <div style="margin-top: 1.5rem;">
+        <button id="generateBtn" onclick="generateSummary()">生成摘要</button>
+      </div>
+    </div>
+    
+    <div class="card" id="outputCard">
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <footer>
+    會議摘要機器人 2.0 · Apple 美學設計
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileName = document.getElementById('fileName');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+
+    // File upload handling
+    fileInput.addEventListener('change', handleFile);
+
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        handleFile({ target: files });
+      }
+    });
+
+    function handleFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const validTypes = ['audio/m4a', 'audio/mpeg', 'audio/mp3', 'audio/wav', 'video/mp4', 'audio/x-wav'];
+      const ext = file.name.split('.').pop().toLowerCase();
+      const validExts = ['m4a', 'mp3', 'mp4', 'wav'];
+
+      if (!validExts.includes(ext)) {
+        alert('僅支援 m4a, MP3, MP4, WAV 格式');
+        return;
+      }
+
+      fileName.textContent = `📎 ${file.name}`;
+      fileName.style.display = 'block';
+
+      // Simulate transcription (replace with actual STT API)
+      simulateTranscription();
+    }
+
+    function simulateTranscription() {
+      progressContainer.style.display = 'block';
+      document.getElementById('generateBtn').disabled = true;
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 100) progress = 100;
+        
+        progressFill.style.width = progress + '%';
+        progressText.textContent = `正在轉換語音為文字... ${Math.round(progress)}%`;
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          progressText.textContent = '轉換完成！';
+          
+          // Fill with sample transcription
+          document.getElementById('content').value = 
+`1. 確認 Q2 產品路線圖
+2. 決定優先開發 AI 摘要功能
+3. 小明負責 UI 設計，下週完成
+4. 小美負責後端開發，三天後交付
+5. 確認採用新技術棧
+6. 需要追蹤市場趨勢
+7. 風險：時間緊迫
+8. 通過預算申請`;
+          
+          setTimeout(() => {
+            progressContainer.style.display = 'none';
+            document.getElementById('generateBtn').disabled = false;
+          }, 1000);
+        }
+      }, 300);
+    }
+
+    function generateSummary() {
+      const date = document.getElementById('date').value || '未指定';
+      const participants = document.getElementById('participants').value || '-';
+      const topic = document.getElementById('topic').value || '未指定';
+      const content = document.getElementById('content').value;
+      
+      if (!content.trim()) {
+        alert('請輸入會議內容或上傳語音檔');
+        return;
+      }
+      
+      const lines = content.split('\n').filter(l => l.trim());
+      
+      const keywords = ['重要', '決定', '確認', '通過', '問題', '風險', '目標', '優先', '採用'];
+      const keyPoints = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.length > 5 && keywords.some(k => clean.includes(k))) {
+          keyPoints.push(clean);
+        }
+      });
+      
+      const decisions = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('決定') || clean.includes('通過') || clean.includes('同意') || clean.includes('確認採用')) {
+          decisions.push({ item: clean, decision: '通過', owner: '-' });
+        }
+      });
+      
+      const todos = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('負責') || clean.includes('完成') || clean.includes('交付')) {
+          const ownerMatch = clean.match(/(\w+)負責/);
+          const deadlineMatch = clean.match(/(下週|三天後|\d+天|\d+\/\d+)/);
+          todos.push({
+            item: clean,
+            owner: ownerMatch ? ownerMatch[1] : '-',
+            deadline: deadlineMatch ? deadlineMatch[1] : '-'
+          });
+        }
+      });
+      
+      const followUps = [];
+      lines.forEach(line => {
+        const clean = line.replace(/^\d+[\.、]\s*/, '').trim();
+        if (clean.includes('追蹤') || clean.includes('後續') || clean.includes('未來') || clean.includes('風險')) {
+          followUps.push(clean);
+        }
+      });
+      
+      let output = `📋 會議摘要\n`;
+      output += `══════════════════════════════════════\n`;
+      output += `📅 日期：${date}\n`;
+      output += `👥 參與者：${participants}\n`;
+      output += `📌 主題：${topic}\n`;
+      output += `──────────────────────────────────────\n`;
+      output += `🎯 重點摘要\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      const finalPoints = keyPoints.slice(0, 5);
+      if (finalPoints.length === 0) {
+        output += '（請手動輸入重點）\n';
+      } else {
+        finalPoints.forEach((p, i) => output += `${i+1}. ${p}\n`);
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `✅ 決策事項\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (decisions.length > 0) {
+        output += `| 項目 | 決定 | 負責人 |\n`;
+        output += `|------|------|--------|\n`;
+        decisions.forEach(d => output += `| ${d.item} | ${d.decision} | ${d.owner} |\n`);
+      } else {
+        output += `（無）\n`;
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `📌 待辦事項\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (todos.length > 0) {
+        output += `| 事項 | 負責人 | 期限 |\n`;
+        output += `|------|--------|------|\n`;
+        todos.forEach(t => output += `| ${t.item} | ${t.owner} | ${t.deadline} |\n`);
+      } else {
+        output += `（無）\n`;
+      }
+      
+      output += `\n──────────────────────────────────────\n`;
+      output += `🔭 後續行動\n`;
+      output += `──────────────────────────────────────\n`;
+      
+      if (followUps.length > 0) {
+        followUps.forEach((f, i) => output += `${i+1}. ${f}\n`);
+      } else {
+        output += `持續追蹤相關進展\n`;
+      }
+      
+      output += `\n══════════════════════════════════════\n`;
+      output += `🤖 會議摘要機器人 2.0`;
+      
+      document.getElementById('output').textContent = output;
+      document.getElementById('outputCard').style.display = 'block';
+      document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

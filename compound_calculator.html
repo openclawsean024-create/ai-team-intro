@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投資複利計算機</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --card: #1C1C1E;
+      --accent: #0071E3;
+      --accent-green: #30D158;
+      --text: #F5F5F7;
+      --text-secondary: #86868B;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container { max-width: 600px; margin: 0 auto; }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group { margin-bottom: 1.25rem; }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1.1rem;
+      font-family: inherit;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #0077ED;
+      transform: scale(1.01);
+    }
+
+    /* Results */
+    .results {
+      display: none;
+    }
+
+    .results.show { display: block; }
+
+    .result-card {
+      background: linear-gradient(135deg, rgba(48, 209, 88, 0.15) 0%, rgba(0, 113, 227, 0.15) 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+
+    .result-value.small { font-size: 1.8rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-item {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* Chart */
+    .chart-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 150px;
+      padding-top: 1rem;
+    }
+
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bar {
+      width: 100%;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+    }
+
+    .bar.principal { background: var(--text-secondary); opacity: 0.5; }
+    .bar.interest { background: var(--accent-green); }
+
+    .bar-label {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 500px) {
+      .input-row { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 投資複利計算機</h1>
+    <p class="subtitle">計算您的財富增長</p>
+
+    <div class="card">
+      <div class="input-group">
+        <label>💵 初始本金（元）</label>
+        <input type="number" id="principal" placeholder="100000" value="100000">
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label>📈 年利率（%）</label>
+          <input type="number" id="rate" placeholder="7" value="7" step="0.1">
+        </div>
+        <div class="input-group">
+          <label>📅 投資年期（年）</label>
+          <input type="number" id="years" placeholder="10" value="10">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>💳 每月投入（元）</label>
+        <input type="number" id="monthly" placeholder="10000" value="10000">
+      </div>
+
+      <button onclick="calculate()">計算複利</button>
+    </div>
+
+    <div class="results" id="results">
+      <div class="result-card">
+        <div class="result-label">最終資產</div>
+        <div class="result-value" id="finalAmount">-</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" id="totalPrincipal">-</div>
+          <div class="stat-label">總投入</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="totalInterest">-</div>
+          <div class="stat-label">總利息</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="roi">-</div>
+          <div class="stat-label">投資報酬率</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">📊 資產成長圖</div>
+        <div class="bar-chart" id="chart"></div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--text-secondary); opacity: 0.5;"></div>
+            <span>本金</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--accent-green);"></div>
+            <span>利息</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function formatMoney(num) {
+      return '¥' + Math.round(num).toLocaleString();
+    }
+
+    function calculate() {
+      const principal = parseFloat(document.getElementById('principal').value) || 0;
+      const rate = parseFloat(document.getElementById('rate').value) || 0;
+      const years = parseInt(document.getElementById('years').value) || 0;
+      const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+
+      const monthlyRate = rate / 100 / 12;
+      const months = years * 12;
+
+      // 計算最終金額
+      // 初始本金的複利
+      const principalWithInterest = principal * Math.pow(1 + monthlyRate, months);
+      
+      // 每月投入的複利（期初投入）
+      let monthlyTotal = 0;
+      for (let i = 0; i < months; i++) {
+        monthlyTotal += monthly * Math.pow(1 + monthlyRate, months - i - 1);
+      }
+
+      const finalAmount = principalWithInterest + monthlyTotal;
+      const totalPrincipal = principal + monthly * months;
+      const totalInterest = finalAmount - totalPrincipal;
+      const roi = (totalInterest / totalPrincipal * 100);
+
+      // 顯示結果
+      document.getElementById('finalAmount').textContent = formatMoney(finalAmount);
+      document.getElementById('totalPrincipal').textContent = formatMoney(totalPrincipal);
+      document.getElementById('totalInterest').textContent = formatMoney(totalInterest);
+      document.getElementById('roi').textContent = roi.toFixed(1) + '%';
+
+      document.getElementById('results').classList.add('show');
+
+      // 繪製圖表
+      drawChart(years, principal, monthly, monthlyRate);
+    }
+
+    function drawChart(years, principal, monthly, monthlyRate) {
+      const chart = document.getElementById('chart');
+      chart.innerHTML = '';
+
+      const displayYears = Math.min(years, 10);
+      const step = Math.ceil(years / 10);
+      const maxAmount = principal * Math.pow(1 + monthlyRate, years * 12) + monthly * ((Math.pow(1 + monthlyRate, years * 12) - 1) / monthlyRate);
+
+      for (let y = step; y <= years; y += step) {
+        const months = y * 12;
+        const principalPart = principal * Math.pow(1 + monthlyRate, months);
+        
+        let monthlyPart = 0;
+        for (let i = 0; i < months; i++) {
+          monthlyPart += monthly * Math.pow(1 + monthlyRate, months - i - 1);
+        }
+
+        const total = principalPart + monthlyPart;
+        const interest = total - (principal + monthly * months);
+
+        const heightPrincipal = ((principal + monthly * months) / maxAmount * 100);
+        const heightInterest = (interest / maxAmount * 100);
+
+        const barGroup = document.createElement('div');
+        barGroup.className = 'bar-group';
+        barGroup.innerHTML = `
+          <div class="bar principal" style="height: ${heightPrincipal}%;"></div>
+          <div class="bar interest" style="height: ${heightInterest}%;"></div>
+          <div class="bar-label">${y}年</div>
+        `;
+        chart.appendChild(barGroup);
+      }
+    }
+  </script>
+</body>
+</html>

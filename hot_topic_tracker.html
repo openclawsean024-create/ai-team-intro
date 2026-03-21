@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI & 科技熱點追蹤</title>
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --bg-card: #1E293B;
+      --accent-blue: #3B82F6;
+      --accent-orange: #F97316;
+      --accent-purple: #8B5CF6;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --border: rgba(255,255,255,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .header {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 60%),
+        var(--bg-dark);
+    }
+
+    .header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2563EB;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      flex: 1;
+      padding-right: 1rem;
+    }
+
+    .card-source {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .card-summary {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--accent-purple);
+    }
+
+    .tag.ai { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+    .tag.tech { background: rgba(249, 115, 22, 0.15); color: var(--accent-orange); }
+
+    .card-why {
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-why-title {
+      font-size: 0.85rem;
+      color: var(--accent-orange);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .card-why-content {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent-blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>🔥 AI & 科技熱點</h1>
+    <p class="subtitle">每日 09:00 自動更新 · 5 條精選</p>
+  </header>
+
+  <div class="container">
+    <div class="controls">
+      <button class="btn btn-primary" onclick="fetchNews()">🔄 重新整理</button>
+      <button class="btn btn-secondary" onclick="showSample()">📋 範例數據</button>
+    </div>
+
+    <div id="newsContainer">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>載入熱點中...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    熱點追蹤機器人 · 自動追蹤 AI 趨勢與科技產業
+  </footer>
+
+  <script>
+    const sampleNews = [
+      {
+        title: "OpenAI 發布 GPT-5 引發 AI 產業新革命",
+        summary: "OpenAI 正式發布最新一代 GPT-5 模型，在推理能力和安全性方面有顯著提升。這次更新包括更長的上下文窗口、多模態理解增強，以及全新的安全對齊機制。業界認為這將進一步加速 AI 應用落地。",
+        source: "TechCrunch",
+        url: "#",
+        tags: ["AI", "OpenAI", "大語言模型"],
+        why: "GPT-5 的發布代表 AI 能力邁入新里程碑，將影響未來一年的 AI 應用發展方向。"
+      },
+      {
+        title: "Google DeepMind 推出新一代 AlphaFold 3",
+        summary: "DeepMind 發布 AlphaFold 3，能夠預測蛋白質與其他分子的複雜互動。這項突破對於藥物發現和生物學研究具有重大意義，可加速新藥開發流程。",
+        source: "Nature",
+        url: "#",
+        tags: ["AI", "生物科技", "DeepMind"],
+        why: "AlphaFold 系列持續推動生物醫學研究突破，這次升級將加速藥物研發和疾病治療探索。"
+      },
+      {
+        title: "Meta 開源新一代 LLM Llama 4",
+        summary: "Meta 宣布開源 Llama 4 模型，引發 AI 社群熱烈討論。 Llama 4 在效能和成本效益上都有顯著提升，將進一步推動 AI 民主化。",
+        source: "The Verge",
+        url: "#",
+        tags: ["AI", "開源", "Meta"],
+        why: "開源模型選擇增加，將降低企業和開發者使用先進 AI 技術的門檻。"
+      },
+      {
+        title: "NVIDIA 發布最新 AI 晶片 GB200",
+        summary: "NVIDIA 推出下一代 AI 加速器 GB200，效能提升 3 倍且功耗降低。這款晶片專為大規模語言模型訓練設計，將加速 AI 基礎設施建設。",
+        source: "Wired",
+        url: "#",
+        tags: ["AI", "硬體", "NVIDIA"],
+        why: "硬體升級直接影響 AI 訓練成本，這款晶片將改變雲端 AI 服務的競爭格局。"
+      },
+      {
+        title: "蘋果 WWDC 2026 揭示 AI 整合策略",
+        summary: "蘋果在 WWDC 上展示 AI 深度整合 iOS 的全新功能，包括智慧助理升級、照片搜尋增強，以及跨裝置 AI 協作體驗。",
+        source: "MacRumors",
+        url: "#",
+        tags: ["AI", "蘋果", "消費電子"],
+        why: "蘋果的 AI 策略將影響數十億用戶的 AI 體驗，代表消費級 AI 應用的主流方向。"
+      }
+    ];
+
+    function getTagClass(tag) {
+      const aiTags = ['AI', 'OpenAI', 'Google', 'Meta', 'NVIDIA', 'DeepMind'];
+      const techTags = ['晶片', '硬體', '消費電子', 'Startup'];
+      
+      if (aiTags.some(t => tag.includes(t))) return 'ai';
+      if (techTags.some(t => tag.includes(t))) return 'tech';
+      return '';
+    }
+
+    function renderNews(news) {
+      const container = document.getElementById('newsContainer');
+      
+      if (!news || news.length === 0) {
+        container.innerHTML = `
+          <div class="empty">
+            <p>尚無熱點新聞</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = news.map((item, i) => `
+        <article class="card">
+          <div class="card-header">
+            <h2 class="card-title">${i + 1}. ${item.title}</h2>
+            <span class="card-source">${item.source}</span>
+          </div>
+          
+          <p class="card-summary">${item.summary}</p>
+          
+          <div class="card-tags">
+            ${item.tags.map(tag => `<span class="tag ${getTagClass(tag)}">${tag}</span>`).join('')}
+          </div>
+          
+          <div class="card-why">
+            <div class="card-why-title">💡 為何重要</div>
+            <div class="card-why-content">${item.why}</div>
+          </div>
+          
+          <a href="${item.url}" class="card-link" target="_blank">
+            閱讀全文 →
+          </a>
+        </article>
+      `).join('');
+    }
+
+    function showSample() {
+      renderNews(sampleNews);
+    }
+
+    function fetchNews() {
+      const container = document.getElementById('newsContainer');
+      container.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>抓取熱點中...</p>
+        </div>
+      `;
+
+      // 模擬 API 延遲
+      setTimeout(() => {
+        showSample();
+      }, 1000);
+    }
+
+    // 初始載入
+    fetchNews();
+  </script>
+</body>
+</html>

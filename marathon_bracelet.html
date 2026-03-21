@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全馬配速手環產生器</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    :root {
+      --black: #000000;
+      --white: #FFFFFF;
+      --neon: #CCFF00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: local('SF Pro Display'), local('SF Pro'), local('-apple-system');
+    }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .controls {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    input, select {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--neon);
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: var(--neon);
+      color: var(--black);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 20px rgba(204, 255, 0, 0.4);
+    }
+
+    /* Bracelet Preview */
+    .bracelet-preview {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 0;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .bracelet {
+      background: var(--black);
+      color: var(--white);
+      padding: 1.5rem;
+      font-family: 'SF Pro Display', -apple-system, sans-serif;
+    }
+
+    .bracelet-header {
+      text-align: center;
+      border-bottom: 3px solid var(--neon);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .bracelet-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.1em;
+    }
+
+    .bracelet-subtitle {
+      font-size: 0.9rem;
+      color: var(--neon);
+      margin-top: 0.5rem;
+    }
+
+    .pace-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
+    }
+
+    .pace-row:last-child {
+      border-bottom: none;
+    }
+
+    .km-mark {
+      font-weight: 700;
+      color: var(--neon);
+      min-width: 60px;
+    }
+
+    .km-mark.big {
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--neon);
+      padding-bottom: 0.3rem;
+      margin-top: 0.5rem;
+    }
+
+    .split-time {
+      font-variant-numeric: tabular-nums;
+      color: var(--white);
+    }
+
+    .lap-pace {
+      color: #888;
+      font-size: 0.85rem;
+    }
+
+    .finish-line {
+      text-align: center;
+      border-top: 4px solid var(--neon);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .finish-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--neon);
+      letter-spacing: 0.2em;
+    }
+
+    .finish-time {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-top: 0.5rem;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        padding: 0;
+        background: white;
+      }
+
+      .controls {
+        display: none;
+      }
+
+      .bracelet-preview {
+        box-shadow: none;
+      }
+
+      .bracelet {
+        background: var(--black) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    /* Instructions */
+    .instructions {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .instructions h3 {
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+
+    .instructions ul {
+      color: #666;
+      padding-left: 1.5rem;
+    }
+
+    .instructions li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <h1>🏃 全馬配速手環產生器</h1>
+    
+    <div class="input-group">
+      <div class="input-field">
+        <label>目標完賽時間</label>
+        <select id="targetTime">
+          <option value="3:30">3 小時 30 分 (sub 330)</option>
+          <option value="3:45">3 小時 45 分 (sub 345)</option>
+          <option value="4:00">4 小時 00 分 (sub 400)</option>
+          <option value="4:30">4 小時 30 分 (sub 430)</option>
+          <option value="5:00">5 小時 00 分 (sub 500)</option>
+          <option value="5:30">5 小時 30 分 (sub 530)</option>
+          <option value="6:00">6 小時 00 分 (sub 600)</option>
+        </select>
+      </div>
+      
+      <div class="input-field">
+        <label>每公里配速</label>
+        <input type="text" id="pacePerKm" readonly style="background: #f5f5f5;">
+      </div>
+    </div>
+
+    <button onclick="generateBracelet()">產生配速手環</button>
+  </div>
+
+  <div class="bracelet-preview">
+    <div class="bracelet" id="bracelet">
+      <div class="bracelet-header">
+        <div class="bracelet-title">MARATHON</div>
+        <div class="bracelet-subtitle" id="targetLabel">目標: 4:00:00</div>
+      </div>
+      
+      <div id="paceTable">
+        <!-- Generated by JS -->
+      </div>
+      
+      <div class="finish-line">
+        <div class="finish-text">🏁 FINISH</div>
+        <div class="finish-time" id="finishTime">4:00:00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <h3>📋 列印說明</h3>
+    <ul>
+      <li>紙張：建議使用 <strong>60g 防水紙</strong> 或護貝</li>
+      <li>尺寸：A4 尺寸直接列印</li>
+      <li>使用：風琴式摺疊，綁在手腕上</li>
+      <li>超高對比設計，救護人員可遠距離閱讀</li>
+    </ul>
+  </div>
+
+  <script>
+    function parseTime(timeStr) {
+      const parts = timeStr.split(':');
+      return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    }
+
+    function formatTime(minutes) {
+      const h = Math.floor(minutes / 60);
+      const m = Math.floor(minutes % 60);
+      const s = Math.floor((minutes % 1) * 60);
+      return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function formatPace(minutes) {
+      const m = Math.floor(minutes);
+      const s = Math.floor((minutes % 1) * 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function generateBracelet() {
+      const targetTime = document.getElementById('targetTime').value;
+      const [targetH, targetM] = targetTime.split(':').map(Number);
+      const targetMinutes = targetH * 60 + targetM;
+      
+      // Calculate pace per km (42.195km total)
+      const pacePerKm = targetMinutes / 42.195;
+      
+      document.getElementById('pacePerKm').value = formatPace(pacePerKm) + ' /km';
+      document.getElementById('targetLabel').textContent = `目標: ${targetH}:${targetM.toString().padStart(2, '0')}:00`;
+      document.getElementById('finishTime').textContent = `${targetH}:${targetM.toString().padStart(2, '0')}:00`;
+      
+      let html = '';
+      
+      for (let km = 1; km <= 42; km++) {
+        const isBigMark = km % 5 === 0;
+        const cumulativeTime = pacePerKm * km;
+        const lapPace = pacePerKm;
+        
+        html += `
+          <div class="pace-row">
+            <span class="km-mark ${isBigMark ? 'big' : ''}">
+              ${isBigMark ? '🏁' : ''} ${km}KM
+            </span>
+            <span class="split-time">${formatTime(cumulativeTime)}</span>
+            <span class="lap-pace">${formatPace(lapPace)}/km</span>
+          </div>
+        `;
+      }
+      
+      // Final 0.195km
+      const finalTime = targetMinutes;
+      html += `
+        <div class="pace-row">
+          <span class="km-mark big">🏁 FINISH</span>
+          <span class="split-time">${formatTime(finalTime)}</span>
+          <span class="lap-pace">42.195km</span>
+        </div>
+      `;
+      
+      document.getElementById('paceTable').innerHTML = html;
+    }
+
+    // Generate default on load
+    generateBracelet();
+  </script>
+</body>
+</html>
