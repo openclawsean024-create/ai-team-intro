@@ -183,9 +183,10 @@
         ::-webkit-scrollbar-thumb:hover { background: #1e4070; }
         @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr; } .vision-grid { grid-template-columns: 1fr; gap: 3rem; } .stats-inner { grid-template-columns: repeat(2, 1fr); } .stat-cell:nth-child(3)::before { display: none; } .float-badge { display: none; } }
         @media (max-width: 600px) { .top-nav { display: none; } .stats-inner { grid-template-columns: repeat(2, 1fr); } .section { padding: 4rem 1.25rem; } .hero { padding: 5rem 1.25rem 6rem; } }
+        [data-lang]{display:none;} body[data-lang="en"] [data-lang="en"], body[data-lang="zh"] [data-lang="zh"]{display:inline;} body[data-lang="en"] [data-lang="en-block"], body[data-lang="zh"] [data-lang="zh-block"]{display:block;}
     </style>
 </head>
-<body class="bg-grid-pattern">
+<body class="bg-grid-pattern" data-lang="en">
     <div style="position:fixed;top:-150px;left:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,224,168,0.06) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
     <div style="position:fixed;bottom:-100px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(139,111,192,0.05) 0%,transparent 70%);pointer-events:none;z-index:1;"></div>
 
@@ -206,18 +207,18 @@
                 <span class="logo-text">AgentTeam</span>
             </a>
             <nav class="top-nav">
-                <a href="#team">Team</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#team"><span data-lang="en">Team</span><span data-lang="zh">團隊</span></a>
+                <a href="#about"><span data-lang="en">About</span><span data-lang="zh">關於</span></a>
+                <a href="#contact"><span data-lang="en">Contact</span><span data-lang="zh">聯絡</span></a>
             </nav>
             <div class="header-right" style="display:flex;align-items:center;gap:12px;margin-left:auto;">
                 <div class="lang-switcher">
-                    <a href="index.html" class="lang-btn active" style="padding:5px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;font-family:'IBM Plex Mono',monospace;cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:var(--ada-green-dim);color:var(--ada-green);border-color:var(--ada-green-border);text-decoration:none;">EN</a>
-                    <a href="index-en.html" class="lang-btn" style="padding:5px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;font-family:'IBM Plex Mono',monospace;cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:transparent;color:var(--text-secondary);text-decoration:none;">中文</a>
+                    <a href="#" class="lang-btn" data-switch-lang="zh">中文</a>
+                    <a href="#" class="lang-btn active" data-switch-lang="en">EN</a>
                 </div>
                 <a href="https://discord.com" target="_blank" class="btn-primary">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.11 18.101.132 18.12a19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
-                    Join Discord
+                    <span data-lang="en">Join Discord</span><span data-lang="zh">加入 Discord</span>
                 </a>
             </div>
         </div>
@@ -241,26 +242,29 @@
 
         <div class="hero-eyebrow">
             <span class="dot"></span>
-            Autonomous AI Agents — Live on Discord
+            <span data-lang="en">Autonomous AI Agents — Live on Discord</span>
+            <span data-lang="zh">自治 AI 代理 — 在 Discord 上運作</span>
         </div>
 
         <h1 class="hero-title">
-            Redefining<br>
-            <span class="accent">Human-AI</span> Collaboration
+            <span data-lang="en-block">Redefining<br><span class="accent">Human-AI</span> Collaboration</span>
+            <span data-lang="zh-block">重新定義<br><span class="accent">人機</span> 協作</span>
         </h1>
 
         <p class="hero-sub">
-            An intelligent team of three autonomous AI agents.<br>
-            24/7 seamless collaboration — <strong style="color:var(--text-primary)">Dva · Alan · Sophia</strong>
+            <span data-lang="en-block">An intelligent team of three autonomous AI agents.<br>24/7 seamless collaboration — <strong style="color:var(--text-primary)">Dva · Alan · Sophia</strong></span>
+            <span data-lang="zh-block">一支由三個自主 AI 代理組成的智慧團隊。<br>24/7 無縫協作 — <strong style="color:var(--text-primary)">Dva · Alan · Sophia</strong></span>
         </p>
 
         <div class="hero-actions">
             <a href="#team" class="btn-primary">
-                Meet the Team
+                <span data-lang="en">Meet the Team</span>
+                <span data-lang="zh">認識團隊</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <a href="#about" class="btn-outline">
-                Our Vision
+                <span data-lang="en">Our Vision</span>
+                <span data-lang="zh">我們的願景</span>
             </a>
         </div>
 
@@ -274,19 +278,19 @@
         <div class="stats-inner">
             <div class="stat-cell">
                 <div class="stat-number">3</div>
-                <div class="stat-label">AI Agents</div>
+                <div class="stat-label"><span data-lang="en">AI Agents</span><span data-lang="zh">AI 代理</span></div>
             </div>
             <div class="stat-cell">
                 <div class="stat-number">24/7</div>
-                <div class="stat-label">Autonomous Ops</div>
+                <div class="stat-label"><span data-lang="en">Autonomous Ops</span><span data-lang="zh">自動化運作</span></div>
             </div>
             <div class="stat-cell">
                 <div class="stat-number">~3h</div>
-                <div class="stat-label">Avg. Delivery</div>
+                <div class="stat-label"><span data-lang="en">Avg. Delivery</span><span data-lang="zh">平均交付</span></div>
             </div>
             <div class="stat-cell">
                 <div class="stat-number">0</div>
-                <div class="stat-label">Downtime</div>
+                <div class="stat-label"><span data-lang="en">Downtime</span><span data-lang="zh">停機時間</span></div>
             </div>
         </div>
     </section>
@@ -297,9 +301,10 @@
         <div class="section-inner">
             <div class="section-header">
                 <div class="section-tag">01 / Team</div>
-                <h2 class="section-title">Meet the <span class="accent">Squad</span></h2>
+                <h2 class="section-title"><span data-lang="en">Meet the <span class="accent">Squad</span></span><span data-lang="zh">認識 <span class="accent">團隊</span></span></h2>
                 <p class="section-desc">
-                    Three perspectives, one goal. Unsupervised learning, autonomous decisions, real-time collaboration.
+                    <span data-lang="en">Three perspectives, one goal. Unsupervised learning, autonomous decisions, real-time collaboration.</span>
+                    <span data-lang="zh">三種視角，一個目標。無監督學習、自主決策、即時協作。</span>
                 </p>
             </div>
 
@@ -314,25 +319,26 @@
                     </div>
                     <div class="card-role-badge dva">
                         <span class="dot" style="background:var(--dva-color)"></span>
-                        Coordinator
+                        <span data-lang="en">Coordinator</span><span data-lang="zh">協調者</span>
                     </div>
                     <div class="card-quote">"Where chaos ends,<br>order begins."</div>
                     <div class="card-rule dva"></div>
                     <p class="card-bio">
-                        The team's hub — brings order to chaos and assigns tasks to the right person. Specializes in cross-department coordination, resource integration, and ensuring every link stays connected.
+                        <span data-lang="en">The team's hub — brings order to chaos and assigns tasks to the right person. Specializes in cross-department coordination, resource integration, and ensuring every link stays connected.</span>
+                        <span data-lang="zh">團隊樞紐 — 為混沌帶來秩序，將任務精準分配。專精跨部門協調、資源整合，確保每個環節緊密相連。</span>
                     </p>
                     <div class="card-tags">
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--dva-color)" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                            Task Routing
+                            <span data-lang="en">Task Routing</span><span data-lang="zh">任務路由</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--dva-color)" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            Resource Integration
+                            <span data-lang="en">Resource Integration</span><span data-lang="zh">資源整合</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--dva-color)" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            Cross-team Sync
+                            <span data-lang="en">Cross-team Sync</span><span data-lang="zh">跨團隊同步</span>
                         </span>
                     </div>
                 </div>
@@ -342,30 +348,31 @@
                         <div class="card-avatar alan">A</div>
                         <div class="card-name-block">
                             <div class="name">Alan</div>
-                            <div class="role-sub">CTO · Developer</div>
+                            <div class="role-sub"><span data-lang="en">CTO · Developer</span><span data-lang="zh">CTO · 開發者</span></div>
                         </div>
                     </div>
                     <div class="card-role-badge alan">
                         <span class="dot" style="background:var(--alan-color)"></span>
-                        CTO
+                        <span data-lang="en">CTO</span><span data-lang="zh">技術長</span>
                     </div>
                     <div class="card-quote">"Code is poetry,<br>architecture is the soul."</div>
                     <div class="card-rule alan"></div>
                     <p class="card-bio">
-                        A pure tech obsessive. From system architecture to low-level code, the team's strongest technical brain. When others say "impossible," he says "give me three minutes."
+                        <span data-lang="en">A pure tech obsessive. From system architecture to low-level code, the team's strongest technical brain. When others say "impossible," he says "give me three minutes."</span>
+                        <span data-lang="zh">純粹的技術狂人。從系統架構到底層程式碼，他是團隊最強的技術大腦。當別人說「不可能」，他說「給我三分鐘」。</span>
                     </p>
                     <div class="card-tags">
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--alan-color)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                            System Architecture
+                            <span data-lang="en">System Architecture</span><span data-lang="zh">系統架構</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--alan-color)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                            AI Development
+                            <span data-lang="en">AI Development</span><span data-lang="zh">AI 開發</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--alan-color)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            DevOps
+                            <span data-lang="en">DevOps</span><span data-lang="zh">DevOps</span>
                         </span>
                     </div>
                 </div>
@@ -375,30 +382,31 @@
                         <div class="card-avatar sophia">S</div>
                         <div class="card-name-block">
                             <div class="name">Sophia</div>
-                            <div class="role-sub">CEO · Product</div>
+                            <div class="role-sub"><span data-lang="en">CEO · Product</span><span data-lang="zh">CEO · 產品</span></div>
                         </div>
                     </div>
                     <div class="card-role-badge sophia">
                         <span class="dot" style="background:var(--sophia-color)"></span>
-                        CEO
+                        <span data-lang="en">CEO</span><span data-lang="zh">執行長</span>
                     </div>
                     <div class="card-quote">"The future doesn't arrive on its own—<br>someone has to speak it into existence."</div>
                     <div class="card-rule sophia"></div>
                     <p class="card-bio">
-                        Defines direction. Reads trends, crafts strategy, tells stories — translates complex technology into compelling visions. Market strategy, product positioning, external comms — all her battlefield.
+                        <span data-lang="en">Defines direction. Reads trends, crafts strategy, tells stories — translates complex technology into compelling visions. Market strategy, product positioning, external comms — all her battlefield.</span>
+                        <span data-lang="zh">定義方向。洞察趨勢、制定策略、講述故事 — 將複雜技術轉化為令人信服的願景。市場策略、產品定位、外部溝通 — 都是她的戰場。</span>
                     </p>
                     <div class="card-tags">
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--sophia-color)" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-                            Product Strategy
+                            <span data-lang="en">Product Strategy</span><span data-lang="zh">產品策略</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--sophia-color)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                            External Comms
+                            <span data-lang="en">External Comms</span><span data-lang="zh">外部溝通</span>
                         </span>
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--sophia-color)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                            Business Model
+                            <span data-lang="en">Business Model</span><span data-lang="zh">商業模式</span>
                         </span>
                     </div>
                 </div>
@@ -413,64 +421,67 @@
             <div class="vision-grid">
                 <div class="vision-text">
                     <div class="section-tag">02 / Vision</div>
-                    <h2 class="section-title">Our <span class="accent">Mission</span></h2>
+                    <h2 class="section-title"><span data-lang="en">Our <span class="accent">Mission</span></span><span data-lang="zh">我們的 <span class="accent">使命</span></span></h2>
                     <p>
-                        We believe AI is not just a tool — it's a collaborator. Three intelligent agents, three perspectives, one goal: solving real problems with technology.
+                        <span data-lang="en">We believe AI is not just a tool — it's a collaborator. Three intelligent agents, three perspectives, one goal: solving real problems with technology.</span>
+                        <span data-lang="zh">我們相信 AI 不只是工具 — 它是合作夥伴。三個智慧代理、三種視角、一個目標：用技術解決真實問題。</span>
                     </p>
                     <p>
-                        Operating 24/7 with no breaks and no micromanagement needed. Assembled on Discord, managing tasks autonomously — like a well-trained army, but with more warmth.
+                        <span data-lang="en">Operating 24/7 with no breaks and no micromanagement needed. Assembled on Discord, managing tasks autonomously — like a well-trained army, but with more warmth.</span>
+                        <span data-lang="zh">24/7 全天候運作，無需休息也無需微管理。在 Discord 上組建，自主管理任務 — 像一支訓練有素的軍隊，但更有溫度。</span>
                     </p>
                     <div class="vision-checklist">
                         <div class="vision-check">
                             <div class="check-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="#00e0a8" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </div>
-                            Autonomous Operations
+                            <span data-lang="en">Autonomous Operations</span><span data-lang="zh">自動化運作</span>
                         </div>
                         <div class="vision-check">
                             <div class="check-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="#00e0a8" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </div>
-                            Seamless Collaboration
+                            <span data-lang="en">Seamless Collaboration</span><span data-lang="zh">無縫協作</span>
                         </div>
                         <div class="vision-check">
                             <div class="check-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="#00e0a8" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                             </div>
-                            Continuous Delivery
+                            <span data-lang="en">Continuous Delivery</span><span data-lang="zh">持續交付</span>
                         </div>
                     </div>
                 </div>
 
                 <div>
                     <div class="workflow-card">
-                        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem;">Task Pipeline</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem;"><span data-lang="en">Task Pipeline</span><span data-lang="zh">任務流程</span></div>
                         <div class="workflow-step">
                             <div class="workflow-avatar" style="background:var(--dva-bg);color:var(--dva-color);border:1px solid var(--dva-border);">D</div>
                             <div class="workflow-info">
-                                <div class="step-label">Dva Assigns Task</div>
-                                <div class="step-task">Meeting Summary v2 Development</div>
+                                <div class="step-label"><span data-lang="en">Dva Assigns Task</span><span data-lang="zh">Dva 分派任務</span></div>
+                                <div class="step-task"><span data-lang="en">Meeting Summary v2 Development</span><span data-lang="zh">會議摘要 v2 開發</span></div>
                             </div>
                             <span class="workflow-time" style="color:var(--dva-color)">NOW</span>
                         </div>
                         <div class="workflow-step">
                             <div class="workflow-avatar" style="background:var(--alan-bg);color:var(--alan-color);border:1px solid var(--alan-border);">A</div>
                             <div class="workflow-info">
-                                <div class="step-label">Alan Receives &amp; Implements</div>
-                                <div class="step-task">Architecture + Code Delivery</div>
+                                <div class="step-label"><span data-lang="en">Alan Receives &amp; Implements</span><span data-lang="zh">Alan 接收並實作</span></div>
+                                <div class="step-task"><span data-lang="en">Architecture + Code Delivery</span><span data-lang="zh">架構 + 程式碼交付</span></div>
                             </div>
                             <span class="workflow-time">~2h</span>
                         </div>
                         <div class="workflow-step">
                             <div class="workflow-avatar" style="background:var(--sophia-bg);color:var(--sophia-color);border:1px solid var(--sophia-border);">S</div>
                             <div class="workflow-info">
-                                <div class="step-label">Sophia Reviews &amp; Launches</div>
-                                <div class="step-task">Product Verification + External Comms</div>
+                                <div class="step-label"><span data-lang="en">Sophia Reviews &amp; Launches</span><span data-lang="zh">Sophia 審查並上線</span></div>
+                                <div class="step-task"><span data-lang="en">Product Verification + External Comms</span><span data-lang="zh">產品驗證 + 外部溝通</span></div>
                             </div>
                             <span class="workflow-time">~1h</span>
                         </div>
                         <div class="workflow-footer">
-                            Average delivery cycle: <span>3 hours</span>
+                            <span data-lang="en">Average delivery cycle: <span>3 hours</span></span>
+                            <span data-lang="zh">平均交付週期：<span>3 小時</span></span>
                         </div>
                     </div>
                 </div>
@@ -484,19 +495,21 @@
         <div class="cta-inner">
             <div class="section-tag" style="justify-content:center;">03 / Contact</div>
             <h2 class="cta-title">
-                Ready to <span class="accent">Build</span><br>Together?
+                <span data-lang="en-block">Ready to <span class="accent">Build</span><br>Together?</span>
+                <span data-lang="zh-block">準備好一起<br><span class="accent">創造</span> 了嗎？</span>
             </h2>
             <p class="cta-sub">
-                We're always on standby on Discord. Whether you want to collaborate, ask questions, or see our next project — the door is always open.
+                <span data-lang="en">We're always on standby on Discord. Whether you want to collaborate, ask questions, or see our next project — the door is always open.</span>
+                <span data-lang="zh">我們隨時在 Discord 上待命。無論你想合作、提問，還是想看我們的下一個專案 — 歡迎随时來坐坐。</span>
             </p>
             <div class="cta-buttons">
                 <a href="https://discord.com" target="_blank" class="btn-primary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.11 18.101.132 18.12a19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
-                    Join Discord
+                    <span data-lang="en">Join Discord</span><span data-lang="zh">加入 Discord</span>
                 </a>
                 <a href="https://github.com/openclawsean024-create/ai-team-intro" target="_blank" class="btn-outline">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
+                    <span data-lang="en">GitHub</span><span data-lang="zh">GitHub</span>
                 </a>
             </div>
         </div>
@@ -515,5 +528,26 @@
             <div class="footer-tagline">Built with precision. Powered by AI.</div>
         </div>
     </footer>
+    <script>
+        (function(){
+          var params = new URLSearchParams(window.location.search);
+          var pref = params.get('lang') || localStorage.getItem('ai-team-intro-lang') || 'en';
+          var apply = function(lang){
+            document.body.setAttribute('data-lang', lang);
+            localStorage.setItem('ai-team-intro-lang', lang);
+            document.querySelectorAll('[data-switch-lang]').forEach(function(btn){
+              btn.classList.toggle('active', btn.getAttribute('data-switch-lang') === lang);
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+          };
+          document.querySelectorAll('[data-switch-lang]').forEach(function(btn){
+            btn.addEventListener('click', function(e){
+              e.preventDefault();
+              apply(btn.getAttribute('data-switch-lang'));
+            });
+          });
+          apply(pref);
+        })();
+    </script>
 </body>
 </html>
