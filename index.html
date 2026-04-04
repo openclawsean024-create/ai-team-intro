@@ -27,9 +27,15 @@
             --alan-color: #e8956a;
             --alan-bg: rgba(232,149,106,0.12);
             --alan-border: rgba(232,149,106,0.3);
-            --sophia-color: #5ab8d4;
-            --sophia-bg: rgba(90,184,212,0.12);
-            --sophia-border: rgba(90,184,212,0.3);
+            --sophia-color: #60a5fa;
+            --sophia-bg: rgba(96,165,250,0.12);
+            --sophia-border: rgba(96,165,250,0.3);
+            --mia-color: #f472b6;
+            --mia-bg: rgba(244,114,182,0.12);
+            --mia-border: rgba(244,114,182,0.3);
+            --ivy-color: #a78bfa;
+            --ivy-bg: rgba(167,139,250,0.12);
+            --ivy-border: rgba(167,139,250,0.3);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -121,7 +127,7 @@
         .section-title .accent { color: var(--ada-green); }
         .section-desc { margin-top: 1rem; font-size: 1.05rem; color: var(--text-secondary); max-width: 520px; line-height: 1.75; font-weight: 300; }
         .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); max-width: 1200px; margin: 0 auto; }
-        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
         .team-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
         .team-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent-color); opacity: 0; transition: opacity 0.35s; }
         .team-card:hover { background: var(--bg-card-hover); border-color: var(--border-strong); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 40px rgba(0,224,168,0.04); }
@@ -129,11 +135,15 @@
         .team-card.dva { --card-accent-color: var(--dva-color); }
         .team-card.alan { --card-accent-color: var(--alan-color); }
         .team-card.sophia { --card-accent-color: var(--sophia-color); }
+        .team-card.mia { --card-accent-color: var(--mia-color); }
+        .team-card.ivy { --card-accent-color: var(--ivy-color); }
         .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .card-avatar { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 1.1rem; font-weight: 600; flex-shrink: 0; }
         .card-avatar.dva { background: var(--dva-bg); color: var(--dva-color); border: 1px solid var(--dva-border); }
         .card-avatar.alan { background: var(--alan-bg); color: var(--alan-color); border: 1px solid var(--alan-border); }
         .card-avatar.sophia { background: var(--sophia-bg); color: var(--sophia-color); border: 1px solid var(--sophia-border); }
+        .card-avatar.mia { background: var(--mia-bg); color: var(--mia-color); border: 1px solid var(--mia-border); }
+        .card-avatar.ivy { background: var(--ivy-bg); color: var(--ivy-color); border: 1px solid var(--ivy-border); }
         .card-name-block .name { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
         .card-name-block .role-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
         .card-role-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 100px; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.25rem; }
@@ -181,7 +191,7 @@
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
         ::-webkit-scrollbar-thumb { background: #1a3354; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #1e4070; }
-        @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr; } .vision-grid { grid-template-columns: 1fr; gap: 3rem; } .stats-inner { grid-template-columns: repeat(2, 1fr); } .stat-cell:nth-child(3)::before { display: none; } .float-badge { display: none; } }
+        @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } .vision-grid { grid-template-columns: 1fr; gap: 3rem; } .stats-inner { grid-template-columns: repeat(2, 1fr); } .stat-cell:nth-child(3)::before { display: none; } .float-badge { display: none; } }
         @media (max-width: 600px) { .top-nav { display: none; } .stats-inner { grid-template-columns: repeat(2, 1fr); } .section { padding: 4rem 1.25rem; } .hero { padding: 5rem 1.25rem 6rem; } }
         [data-lang]{display:none;} body[data-lang="en"] [data-lang="en"], body[data-lang="zh"] [data-lang="zh"]{display:inline;} body[data-lang="en"] [data-lang="en-block"], body[data-lang="zh"] [data-lang="zh-block"]{display:block;}
     </style>
@@ -277,7 +287,7 @@
     <section class="stats-bar">
         <div class="stats-inner">
             <div class="stat-cell">
-                <div class="stat-number">3</div>
+                <div class="stat-number">5</div>
                 <div class="stat-label"><span data-lang="en">AI Agents</span><span data-lang="zh">AI 代理</span></div>
             </div>
             <div class="stat-cell">
@@ -407,6 +417,74 @@
                         <span class="card-tag">
                             <svg viewBox="0 0 24 24" fill="none" stroke="var(--sophia-color)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
                             <span data-lang="en">Business Model</span><span data-lang="zh">商業模式</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="team-card mia">
+                    <div class="card-header">
+                        <div class="card-avatar mia">M</div>
+                        <div class="card-name-block">
+                            <div class="name">Mia</div>
+                            <div class="role-sub"><span data-lang="en">Secretary</span><span data-lang="zh">文書 / 祕書</span></div>
+                        </div>
+                    </div>
+                    <div class="card-role-badge mia">
+                        <span class="dot" style="background:var(--mia-color)"></span>
+                        <span data-lang="en">Secretary</span><span data-lang="zh">文書</span>
+                    </div>
+                    <div class="card-quote">"Details are the difference<br>between good and great."</div>
+                    <div class="card-rule mia"></div>
+                    <p class="card-bio">
+                        <span data-lang="en">Handles documentation, meeting notes, and internal communications. Ensures the team's information flows smoothly and nothing falls through the cracks.</span>
+                        <span data-lang="zh">處理文件、會議記錄與內部溝通。確保團隊資訊流通順暢，所有事項不漏接。</span>
+                    </p>
+                    <div class="card-tags">
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--mia-color)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <span data-lang="en">Documentation</span><span data-lang="zh">文件管理</span>
+                        </span>
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--mia-color)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                            <span data-lang="en">Meeting Notes</span><span data-lang="zh">會議紀錄</span>
+                        </span>
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--mia-color)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            <span data-lang="en">Scheduling</span><span data-lang="zh">行程安排</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="team-card ivy">
+                    <div class="card-header">
+                        <div class="card-avatar ivy">I</div>
+                        <div class="card-name-block">
+                            <div class="name">Ivy</div>
+                            <div class="role-sub"><span data-lang="en">Data · Market Intel</span><span data-lang="zh">資料蒐集 / 市場偵測</span></div>
+                        </div>
+                    </div>
+                    <div class="card-role-badge ivy">
+                        <span class="dot" style="background:var(--ivy-color)"></span>
+                        <span data-lang="en">Data Intel</span><span data-lang="zh">資料偵測</span>
+                    </div>
+                    <div class="card-quote">"Data without insight<br>is just noise."</div>
+                    <div class="card-rule ivy"></div>
+                    <p class="card-bio">
+                        <span data-lang="en">Monitors market trends, gathers competitive intelligence, and surfaces actionable insights. Turns raw data into strategic advantages for the team.</span>
+                        <span data-lang="zh">監測市場趨勢、收集競品情報、並提供可行動的洞察。將原始資料轉化為團隊的策略優勢。</span>
+                    </p>
+                    <div class="card-tags">
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--ivy-color)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            <span data-lang="en">Market Intel</span><span data-lang="zh">市場偵測</span>
+                        </span>
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--ivy-color)" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                            <span data-lang="en">Data Analysis</span><span data-lang="zh">數據分析</span>
+                        </span>
+                        <span class="card-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--ivy-color)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                            <span data-lang="en">Trend Reports</span><span data-lang="zh">趨勢報告</span>
                         </span>
                     </div>
                 </div>
