@@ -1,27 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/index-en.html"
-    },
-    {
-      "src": "/create",
-      "dest": "/create.html"
-    },
-    {
-      "src": "/leaderboard",
-      "dest": "/leaderboard.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "installCommand": "npm install",
+  "framework": "nextjs"
 }
