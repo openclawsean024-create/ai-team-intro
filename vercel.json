@@ -12,6 +12,14 @@
       "dest": "/index-en.html"
     },
     {
+      "src": "/create",
+      "dest": "/create.html"
+    },
+    {
+      "src": "/leaderboard",
+      "dest": "/leaderboard.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
