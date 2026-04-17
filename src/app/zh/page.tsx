@@ -1,6 +1,9 @@
 "use client";
 
 import { agents, metrics, workflowSteps, type Agent } from "@/data/agents";
+import OrgChart from "@/components/OrgChart";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 
 /* ─── Hero ─────────────────────────────────────────────────────────────── */
 function Hero() {
@@ -18,7 +21,7 @@ function Hero() {
         <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-4">
           <span className="gradient-text">AI Agent 團隊</span>
         </h1>
-        <p className="text-lg sm:text-xl text-text-secondary font-mono mb-8">
+        <p className="text-lg sm:text-xl text-[var(--text-secondary)] font-mono mb-8">
           Cardano 驅動的自主智能小隊
         </p>
 
@@ -30,17 +33,17 @@ function Hero() {
             認識團隊
           </a>
           <a
-            href="#workflow"
-            className="px-6 py-3 border border-white/10 hover:border-white/30 text-text-secondary hover:text-white font-medium rounded-xl transition-colors"
+            href="#org-chart"
+            className="px-6 py-3 border border-white/10 hover:border-white/30 text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium rounded-xl transition-colors"
           >
-            查看協作流程
+            查看架構圖
           </a>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-secondary)]">
         <span className="text-xs">向下滑動</span>
-        <div className="w-px h-8 bg-gradient-to-b from-text-secondary to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-b from-[var(--text-secondary)] to-transparent" />
       </div>
     </section>
   );
@@ -49,7 +52,7 @@ function Hero() {
 /* ─── Agent Card ───────────────────────────────────────────────────────── */
 function AgentCard({ agent }: { agent: Agent }) {
   return (
-    <div className="card-hover card-glow rounded-2xl p-6 bg-[#1a1a2e]/80 backdrop-blur border border-white/5 flex flex-col gap-4">
+    <Link href={`/agents/${agent.id}`} className="card-hover card-glow rounded-2xl p-6 bg-[var(--card-bg)] backdrop-blur border border-[var(--border)] flex flex-col gap-4 block">
       <div className="flex items-start gap-4">
         <div
           className={`w-14 h-14 rounded-xl ${agent.color} flex items-center justify-center text-2xl shrink-0`}
@@ -57,12 +60,12 @@ function AgentCard({ agent }: { agent: Agent }) {
           {agent.emoji}
         </div>
         <div className="min-w-0">
-          <h3 className="text-lg font-bold text-white truncate">{agent.nameZh}</h3>
+          <h3 className="text-lg font-bold text-[var(--text-primary)] truncate">{agent.nameZh}</h3>
           <p className="text-sm text-primary font-medium">{agent.roleZh}</p>
         </div>
       </div>
 
-      <p className="text-sm text-text-secondary leading-relaxed">
+      <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
         &ldquo;{agent.taglineZh}&rdquo;
       </p>
 
@@ -70,31 +73,48 @@ function AgentCard({ agent }: { agent: Agent }) {
         {agent.skills.map((skill) => (
           <span
             key={skill.name}
-            className="px-2.5 py-1 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-text-secondary"
+            className="px-2.5 py-1 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-[var(--text-secondary)]"
           >
             {skill.nameZh}
           </span>
         ))}
       </div>
-    </div>
+
+      <div className="text-xs text-accent font-medium">查看檔案 →</div>
+    </Link>
   );
 }
 
 /* ─── Agents Section ───────────────────────────────────────────────────── */
 function AgentsSection() {
+  const [roleFilter, setRoleFilter] = useState("All");
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    return agents.filter((agent) => {
+      const roleMatch = roleFilter === "All" || agent.roleZh.includes(roleFilter) || agent.role.includes(roleFilter);
+      const text = `${agent.name} ${agent.nameZh} ${agent.role} ${agent.roleZh} ${agent.tagline} ${agent.taglineZh} ${agent.skills.map((s) => `${s.name} ${s.nameZh}`).join(" ")}`.toLowerCase();
+      return roleMatch && text.includes(query.toLowerCase());
+    });
+  }, [query, roleFilter]);
+
   return (
     <section id="agents" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          認識我們的團隊
-        </h2>
-        <p className="text-text-secondary max-w-2xl mx-auto">
-          五位自主 AI Agent 完美協作 — 各有所長，合而為一，無可阻擋。
-        </p>
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-10">
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-3">認識我們的團隊</h2>
+          <p className="text-[var(--text-secondary)] max-w-2xl">五位自主 AI Agent 完美協作 — 各有所長，合而為一，無可阻擋。</p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="搜尋姓名 / 能力 / 角色" className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-[var(--text-primary)] outline-none min-w-[260px] placeholder:text-[var(--text-secondary)]" />
+          <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)} className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-[var(--text-primary)] outline-none">
+            {['All', '協調者', '技術長', '執行長', '文書', '支援'].map((item) => <option key={item}>{item}</option>)}
+          </select>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {agents.map((agent) => (
+        {filtered.map((agent) => (
           <AgentCard key={agent.id} agent={agent} />
         ))}
       </div>
@@ -102,16 +122,16 @@ function AgentsSection() {
   );
 }
 
-/* ─── Workflow Section ─────────────────────────────────────────────────── */
+/* ─── Workflow Section ──────────────────────────────────────────────────── */
 function WorkflowSection() {
   return (
-    <section id="workflow" className="py-24 bg-[#1a1a2e]/30 border-y border-white/5">
+    <section id="workflow" className="py-24 bg-[var(--bg-card)]/30 border-y border-[var(--border)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">
             我們如何運作
           </h2>
-          <p className="text-text-secondary max-w-2xl mx-auto">
+          <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
             從任務分派到交付，三階段無縫流程。
           </p>
         </div>
@@ -124,15 +144,15 @@ function WorkflowSection() {
                 {i < workflowSteps.length - 1 && (
                   <div className="hidden md:block absolute top-10 left-full w-full h-0.5 workflow-line -translate-x-1/2 z-0" />
                 )}
-                <div className="relative z-10 card-glow rounded-2xl p-6 bg-[#1a1a2e]/80 backdrop-blur border border-white/5 flex flex-col items-center text-center gap-4">
+                <div className="relative z-10 card-glow rounded-2xl p-6 bg-[var(--card-bg)] backdrop-blur border border-[var(--border)] flex flex-col items-center text-center gap-4">
                   <div
                     className={`w-16 h-16 rounded-xl ${agent.color} flex items-center justify-center text-2xl`}
                   >
                     {agent.emoji}
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">{step.labelZh}</h3>
-                    <p className="text-sm text-text-secondary">{step.timeZh}</p>
+                    <h3 className="text-base font-bold text-[var(--text-primary)]">{step.labelZh}</h3>
+                    <p className="text-sm text-[var(--text-secondary)]">{step.timeZh}</p>
                   </div>
                 </div>
               </div>
@@ -144,12 +164,12 @@ function WorkflowSection() {
   );
 }
 
-/* ─── Metrics Section ──────────────────────────────────────────────────── */
+/* ─── Metrics Section ───────────────────────────────────────────────────── */
 function MetricsSection() {
   return (
     <section id="metrics" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+        <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-4">
           數據說話
         </h2>
       </div>
@@ -158,12 +178,12 @@ function MetricsSection() {
         {metrics.map((m) => (
           <div
             key={m.labelZh}
-            className="card-glow rounded-2xl p-8 bg-[#1a1a2e]/80 backdrop-blur border border-white/5 text-center"
+            className="card-glow rounded-2xl p-8 bg-[var(--card-bg)] backdrop-blur border border-[var(--border)] text-center"
           >
-            <div className="text-4xl sm:text-5xl font-extrabold text-white mb-2 metric-enter">
+            <div className="text-4xl sm:text-5xl font-extrabold text-[var(--text-primary)] mb-2 metric-enter">
               {m.value}
             </div>
-            <div className="text-sm text-text-secondary font-medium">{m.labelZh}</div>
+            <div className="text-sm text-[var(--text-secondary)] font-medium">{m.labelZh}</div>
           </div>
         ))}
       </div>
@@ -171,12 +191,13 @@ function MetricsSection() {
   );
 }
 
-/* ─── Page ─────────────────────────────────────────────────────────────── */
+/* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function ZhHomePage() {
   return (
     <main>
       <Hero />
       <AgentsSection />
+      <OrgChart />
       <WorkflowSection />
       <MetricsSection />
     </main>

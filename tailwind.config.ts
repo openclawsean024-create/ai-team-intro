@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#6366F1",
-        secondary: "#1E1E2E",
-        accent: "#10B981",
+        primary: "var(--primary)",
+        secondary: "var(--bg-card)",
+        accent: "var(--accent)",
         warning: "#F59E0B",
         danger: "#EF4444",
-        "text-primary": "#F8FAFC",
-        "text-secondary": "#94A3B8",
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
@@ -23,6 +23,7 @@ const config: Config = {
       },
     },
   },
+  darkMode: ["class"],
   plugins: [],
 };
 
