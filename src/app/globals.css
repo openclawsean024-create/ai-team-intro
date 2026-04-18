@@ -225,7 +225,7 @@ body {
   color: inherit;
 }
 
-/* 4px top border per SPEC v4 */
+/* 4px top border per SPEC v4 — positioned above ::after gradient */
 .agent-card::before {
   content: "";
   position: absolute;
@@ -234,19 +234,21 @@ body {
   right: 0;
   height: 4px;
   border-radius: 16px 16px 0 0;
+  z-index: 2;
 }
 
-/* Card background gradient overlay per SPEC */
+/* Card gradient overlay — z-index: 1 so it sits below the 4px border */
 .agent-card::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0;
   transition: opacity 200ms ease;
   pointer-events: none;
+  z-index: 1;
+  border-radius: 16px;
 }
 
 .agent-card:hover {

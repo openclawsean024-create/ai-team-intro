@@ -19,7 +19,7 @@ export default async function AgentDetailPage({ params }: { params: Promise<{ id
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="card-glow rounded-3xl p-8 bg-[var(--card-bg)] border border-[var(--border)]">
             <div className="flex items-start gap-5">
-              <div className={`w-20 h-20 rounded-2xl ${agent.color} flex items-center justify-center text-4xl`}>{agent.emoji}</div>
+              <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl`} style={{ backgroundColor: agent.color }}>{agent.emoji}</div>
               <div>
                 <div className="text-sm text-primary font-semibold">{agent.roleZh}</div>
                 <h1 className="text-4xl font-extrabold text-[var(--text-primary)] mt-1">{agent.nameZh}</h1>
@@ -75,7 +75,7 @@ export default async function AgentDetailPage({ params }: { params: Promise<{ id
               <div className="flex flex-col gap-2">
                 {agents.filter((a) => a.id !== agent.id).map((a) => (
                   <Link key={a.id} href={`/agents/${a.id}`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                    <div className={`w-8 h-8 rounded-lg ${a.color} flex items-center justify-center text-sm`}>{a.emoji}</div>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm`} style={{ backgroundColor: a.color }}>{a.emoji}</div>
                     <div className="min-w-0">
                       <div className="text-sm font-medium text-[var(--text-primary)] truncate">{a.nameZh}</div>
                       <div className="text-xs text-[var(--text-secondary)]">{a.roleZh}</div>

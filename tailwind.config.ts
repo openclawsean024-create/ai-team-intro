@@ -18,7 +18,7 @@ const config: Config = {
         "text-secondary": "var(--text-secondary)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "Noto Sans TC", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
     },
