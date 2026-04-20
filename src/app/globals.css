@@ -1173,3 +1173,342 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+
+/* ─── Hero Stats Row ───────────────────────────────────────────────────── */
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.hero-stats-row strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.hero-dot {
+  opacity: 0.4;
+}
+
+/* ─── Why Choose Us ─────────────────────────────────────────────────────── */
+.why-choose-section {
+  background: var(--bg-card);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.differentiators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.diff-card {
+  background: var(--bg-page);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.diff-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+.diff-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.diff-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+
+.diff-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ─── ROI Stats Section ────────────────────────────────────────────────── */
+.roi-section {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(99,102,241,0.1) 100%);
+  border-top: 1px solid rgba(16,185,129,0.2);
+  border-bottom: 1px solid rgba(99,102,241,0.2);
+}
+
+.roi-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.roi-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.roi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.roi-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.roi-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.roi-value {
+  font-size: 44px;
+  font-weight: 800;
+  color: #10B981;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.roi-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.roi-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ─── Client Logos ──────────────────────────────────────────────────────── */
+.client-logos-section {
+  background: var(--bg-card);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.client-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.client-logo-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-page);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.client-logo-card:hover {
+  border-color: rgba(99,102,241,0.4);
+  background: rgba(255,255,255,0.04);
+}
+
+.client-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary), rgba(99,102,241,0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.client-info {
+  min-width: 0;
+}
+
+.client-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.client-sector {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ─── Workflow Demo ────────────────────────────────────────────────────── */
+.workflow-section {
+  background: var(--bg-page);
+}
+
+.workflow-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  flex: 1;
+  min-width: 120px;
+  max-width: 160px;
+}
+
+.workflow-step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.workflow-step-connector {
+  position: absolute;
+  top: 28px;
+  left: calc(50% + 28px);
+  right: calc(-50% + 28px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--card-border), transparent);
+  z-index: 1;
+}
+
+.workflow-step:last-child .workflow-step-connector {
+  display: none;
+}
+
+.workflow-step-info {
+  text-align: center;
+}
+
+.workflow-step-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.workflow-step-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.workflow-arrow {
+  display: none;
+}
+
+.workflow-result {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.workflow-result-badge {
+  display: inline-block;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: #10B981;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 999px;
+}
+
+/* ─── Team Section Header ──────────────────────────────────────────────── */
+.team-section-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding-top: 80px;
+}
+
+/* ─── Footer Tagline ─────────────────────────────────────────────────────── */
+.footer-tagline {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ─── Responsive tweaks ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .workflow-timeline {
+    flex-direction: column;
+  }
+  .workflow-step {
+    flex-direction: row;
+    max-width: 100%;
+    min-width: 0;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .workflow-step-connector {
+    display: none;
+  }
+  .workflow-step-info {
+    text-align: left;
+  }
+  .workflow-arrow {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 18px;
+  }
+  .workflow-result {
+    text-align: left;
+  }
+  .roi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero-dot {
+    display: none;
+  }
+  .roi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .client-logos-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

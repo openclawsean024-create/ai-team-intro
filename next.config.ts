@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
   // Distinguish from workspace root
-  outputFileTracingRoot: "/home/sean/.openclaw/workspace/workspaces/alan/ai-team-intro",
+  outputFileTracingRoot: "/home/sean/.openclaw/workspace/workspaces/sophia/repos/ai-team-intro",
 };
 
 export default nextConfig;

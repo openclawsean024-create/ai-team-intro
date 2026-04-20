@@ -274,7 +274,7 @@ export const pricingPlans = [
     priceEn: "TWD 45,000",
     period: "/月起",
     periodEn: "/month",
-    desc: "适合已有 AI 基礎、想规模化應用的企業。",
+    desc: "適合已有 AI 基礎、想規模化應用的企業。",
     descEn: "For teams with existing AI foundations looking to scale.",
     features: [
       "3 個 AI Agent 協作部署",
@@ -308,7 +308,7 @@ export const pricingPlans = [
       "專屬系統架構與 DevOps",
       "每日策略同步",
       "24/7 優先即時支援",
-      "專屬客户成功經理",
+      "專屬客戶成功經理",
       "年度 AI 趨勢報告",
     ],
     featuresEn: [
@@ -357,12 +357,87 @@ export const trustBadges = [
   { label: "24/7 Monitoring", labelZh: "24/7 監控", icon: "📡" },
 ];
 
+// ── Why Choose Us ──────────────────────────────────────────────────────────
+export const differentiators = [
+  {
+    icon: "⚡",
+    title: "48 小時內啟動",
+    titleEn: "Live in 48 Hours",
+    desc: "從需求確認到首個 Agent 上線，確保 48 小時內見到初步成效。",
+    descEn: "From kickoff to first agent live — guaranteed within 48 hours.",
+  },
+  {
+    icon: "🎯",
+    title: "100% 成果導向",
+    titleEn: "Results-Driven",
+    desc: "不賣功能，賣成效。每一個環節都對標可量化的商業 KPI。",
+    descEn: "We sell outcomes, not features. Every deliverable ties to a measurable KPI.",
+  },
+  {
+    icon: "🔄",
+    title: "無縫替換現有系統",
+    titleEn: "Zero Disruption",
+    desc: "與現有系統無痛整合，不衝擊現有流程，確保過渡平穩。",
+    descEn: "Drop into your existing stack without disrupting current workflows.",
+  },
+  {
+    icon: "📈",
+    title: "投資報酬率透明",
+    titleEn: "Transparent ROI",
+    desc: "每季提供成效報告，清楚呈現 AI 帶來的具體成本節省與營收增長。",
+    descEn: "Quarterly impact reports — see exactly how much cost you've saved and revenue you've grown.",
+  },
+  {
+    icon: "🛡️",
+    title: "企業級安全合規",
+    titleEn: "Enterprise Security & Compliance",
+    desc: "SOC 2 Type II、TLS 1.3 加密、ISO 27001 資料中心，滿足最嚴格的企業資安要求。",
+    descEn: "SOC 2 Type II, TLS 1.3 encryption, ISO 27001 data centers — meeting the highest enterprise security standards.",
+  },
+  {
+    icon: "🤝",
+    title: "專屬客戶成功經理",
+    titleEn: "Dedicated Customer Success Manager",
+    desc: "每一位 Enterprise 客戶都有專屬 CSM，確保 AI 應用持續創造價值。",
+    descEn: "Every Enterprise client has a dedicated CSM ensuring your AI investment continuously delivers value.",
+  },
+];
+
+// ── Client Logos ──────────────────────────────────────────────────────────
 export const clientLogos = [
-  { name: "TechCorp Asia", sector: "科技" },
-  { name: "Finova Labs", sector: "金融" },
-  { name: "MediChain", sector: "醫療" },
-  { name: "RetailEdge", sector: "零售" },
-  { name: "CloudScale Co", sector: "SaaS" },
+  { name: "芯耀科技", nameEn: "Xinyao Tech", sector: "半導體", sectorEn: "Semiconductor" },
+  { name: "雲馳軟體", nameEn: "CloudSync", sector: "企業軟體", sectorEn: "Enterprise Software" },
+  { name: "元智金服", nameEn: "MetaFinance", sector: "金融科技", sectorEn: "FinTech" },
+  { name: "慧診健康", nameEn: "MediSense", sector: "健康科技", sectorEn: "HealthTech" },
+  { name: "優品電商", nameEn: "Upin Commerce", sector: "電子商務", sectorEn: "E-Commerce" },
+  { name: "領航製造", nameEn: "Apex Manufacturing", sector: "智慧製造", sectorEn: "Smart Manufacturing" },
+  { name: "明日教育", nameEn: "BrightEdu", sector: "教育科技", sectorEn: "EdTech" },
+  { name: "馳遠物流", nameEn: "SwiftLogistics", sector: "物流供應鏈", sectorEn: "Logistics" },
+];
+
+// ── Workflow Demo ─────────────────────────────────────────────────────────
+export const workflowDemo = {
+  title: "看見 AI Agent 團隊如何協作",
+  titleEn: "See the Agent Team in Action",
+  desc: "模擬一個真實的商業任務——從需求輸入到成果交付，5 個 Agent 如何即時接力完成。",
+  descEn: "Watch a real business task flow through all 5 agents — from input to deliverable, in real time.",
+  steps: [
+    { agent: "dva", label: "Dva 接收任務並分類", labelEn: "Dva receives & routes request", time: "0s", emoji: "🎯" },
+    { agent: "ivy", label: "Ivy 分析市場背景資料", labelEn: "Ivy runs market analysis", time: "30s", emoji: "🔭" },
+    { agent: "alan", label: "Alan 實作系統方案", labelEn: "Alan builds solution", time: "2min", emoji: "⚙️" },
+    { agent: "sophia", label: "Sophia 品質審核把關", labelEn: "Sophia reviews quality", time: "2h 30min", emoji: "✅" },
+    { agent: "mia", label: "Mia 生成交付文件", labelEn: "Mia produces docs", time: "2h 55min", emoji: "📝" },
+  ],
+  result: "3 小時完成，零人工介入",
+  resultEn: "Delivered in 3 hours — zero manual intervention",
+};
+
+// ── ROI Stats ───────────────────────────────────────────────────────────
+export const roiStats = [
+  { value: "3x", label: "平均投資報酬率", labelEn: "Avg. ROI", note: "以 Explorer 方案一年計算", noteEn: "Based on Explorer plan, Year 1" },
+  { value: "85%", label: "人工工時節省", labelEn: "Manual Hours Saved", note: "重複性任務自動化後", noteEn: "After repetitive task automation" },
+  { value: "< 30 days", label: "首次見效時間", labelEn: "Time to First Result", note: "從啟動到第一次產出", noteEn: "From kickoff to first output" },
+  { value: "99.9%", label: "系統運行時間", labelEn: "System Uptime", note: "全年不中斷服務", noteEn: "Guaranteed throughout the year" },
 ];
 
 // ── Team Stats ──────────────────────────────────────────────────────────────
@@ -487,6 +562,31 @@ export const servicesExtended = [
     descZh: "為企業團隊量身打造 AI 工具培訓課程，協助內部人員快速掌握並有效運用 AI。",
     popular: false,
   },
+  {
+    emoji: "🛡️",
+    title: "AI 合規與安全顧問",
+    titleZh: "AI 合規與安全顧問",
+    desc: "協助企業確保 AI 系統符合 GDPR、SOC 2、ISO 27001 等法規標準，附帶缺口分析報告。",
+    descZh: "協助企業確保 AI 系統符合 GDPR、SOC 2、ISO 27001 等法規標準，附帶缺口分析報告。",
+    popular: false,
+  },
+  {
+    emoji: "🔮",
+    title: "AI 產品策略顧問",
+    titleZh: "AI 產品策略顧問",
+    desc: "從市場定位、功能規劃到技術選型，協助制定 AI 產品 Roadmap 與競爭策略。",
+    descZh: "從市場定位、功能規劃到技術選型，協助制定 AI 產品 Roadmap 與競爭策略。",
+    popular: false,
+  },
+];
+
+// ── Expanded Industries ────────────────────────────────────────────────
+export const industriesExtended = [
+  ...industries,
+  { label: "教育科技", labelEn: "EdTech", icon: "🎓" },
+  { label: "物流與供應鏈", labelEn: "Logistics & Supply Chain", icon: "🚚" },
+  { label: "法律科技", labelEn: "LegalTech", icon: "⚖️" },
+  { label: "農業科技", labelEn: "AgriTech", icon: "🌱" },
 ];
 
 // ── Expanded Testimonials ─────────────────────────────────────────────────
@@ -526,6 +626,13 @@ export const testimonialsExtended = [
     authorEn: "Head of Product, Software Company",
     result: "Zero spec errors",
   },
+  {
+    quote: "Mia 整理的知識庫讓新進工程師上手速度提升 60%，培訓成本大幅下降。",
+    quoteEn: "Mia's knowledge base reduced our new engineer onboarding time by 60% — training costs dropped significantly.",
+    author: "某軟體顧問公司 技術總監",
+    authorEn: "VP of Engineering, Software Consultancy",
+    result: "60% faster onboarding",
+  },
 ];
 
 // ── FAQ ──────────────────────────────────────────────────────────────────
@@ -559,6 +666,24 @@ export const faqs = [
     qEn: "Do we need technical expertise to use your services?",
     a: "不需要。我們的服務是為企業級客戶設計的，從需求訪談、系統配置到日常使用，都有專屬團隊支援。一般 business user 都能輕鬆上手。我們也提供完整的教育訓練，確保您的團隊能充分駕馭系統。",
     aEn: "Not at all. Our services are designed for enterprise clients — from onboarding and configuration to day-to-day operations, you have dedicated support. Regular business users find it easy to use. We also provide full training to ensure your team can fully leverage the system.",
+  },
+  {
+    q: "你們的定價包含哪些內容？是否有隱藏費用？",
+    qEn: "What's included in your pricing? Are there hidden fees?",
+    a: "所有方案費用已包含 Agent 部署、系統整合與基本培訓。Growth 方案的 API 調用費用也已涵蓋在月費內。Enterprise 方案的範圍在合約簽訂前會完整確認，絕無預期外的費用。",
+    aEn: "All plan fees include agent deployment, system integration, and basic training. API call costs are included in the monthly fee for Growth plans. Enterprise scope is fully defined before contract signing — no surprise bills.",
+  },
+  {
+    q: "可以先試用再決定嗎？",
+    qEn: "Can we trial before committing?",
+    a: "當然可以。Growth 方案提供 30 天免費試用，無需綁定信用卡。若您想先深入了解，我們也提供 30 分鐘的免費顧問諮詢，根據您的業務痛點提供初步的 AI 應用建議。",
+    aEn: "Absolutely. Growth plans include a 30-day free trial with no credit card required. We also offer a free 30-minute consultation to understand your business challenges and provide initial AI recommendations.",
+  },
+  {
+    q: "適用於哪些產業？已有類似案例嗎？",
+    qEn: "Which industries do you serve? Do you have case studies?",
+    a: "我們已服務電子商務、金融科技、健康醫療、SaaS、媒體內容、智慧製造、教育科技、法律科技與農業科技等領域。每一個產業都有對應的 Agent 配置與成功案例，Explorer 方案客戶可在顧問會議中要求查看相關產業參考。",
+    aEn: "We've served e-commerce, FinTech, healthcare, SaaS, media, smart manufacturing, EdTech, LegalTech, and AgriTech. Each has matching agent configurations and success stories. Explorer clients can request relevant case references during their consultation.",
   },
 ];
 

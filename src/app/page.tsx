@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { agents, metrics, servicesExtended, industries, testimonialsExtended, pricingPlans, trustBadges, teamStats, processSteps, faqs, type Agent } from "@/data/agents";
+import { agents, metrics, servicesExtended, industriesExtended, testimonialsExtended, pricingPlans, trustBadges, teamStats, processSteps, faqs, differentiators, clientLogos, workflowDemo, roiStats, type Agent } from "@/data/agents";
 
 /* ─── Language Switch (fixed top-right per SPEC v4) ─────────────────── */
 function LanguageSwitch() {
@@ -112,6 +112,110 @@ function HowItWorksSection() {
   );
 }
 
+/* ─── ROI Stats Section ─────────────────────────────────────────────────── */
+function RoiStatsSection() {
+  return (
+    <section className="section-wrapper roi-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">Measurable Impact</span>
+          <h2 className="section-title">The ROI Enterprises Actually See</h2>
+          <p className="section-desc">
+            Numbers don't lie. Here's what our clients measure after the first 90 days.
+          </p>
+        </div>
+        <div className="roi-grid">
+          {roiStats.map((stat) => (
+            <div key={stat.label} className="roi-card">
+              <div className="roi-value">{stat.value}</div>
+              <div className="roi-label">{stat.label}</div>
+              <div className="roi-note">{stat.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Why Choose Us (Differentiators) Section ─────────────────────────── */
+function WhyChooseUsSection() {
+  return (
+    <section className="section-wrapper why-choose-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">Why Our Team</span>
+          <h2 className="section-title">What Sets Us Apart</h2>
+          <p className="section-desc">
+            Five agents, one mission: to deliver measurable AI outcomes for your business — not just hype.
+          </p>
+        </div>
+        <div className="differentiators-grid">
+          {differentiators.map((d) => (
+            <div key={d.title} className="diff-card">
+              <div className="diff-icon">{d.icon}</div>
+              <h3 className="diff-title">{d.title}</h3>
+              <p className="diff-desc">{d.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Workflow Demo Section ─────────────────────────────────────────────── */
+function WorkflowDemoSection() {
+  return (
+    <section className="section-wrapper workflow-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">Live Demo</span>
+          <h2 className="section-title">{workflowDemo.title}</h2>
+          <p className="section-desc">{workflowDemo.desc}</p>
+        </div>
+        <div className="workflow-timeline">
+          {workflowDemo.steps.map((step, i) => (
+            <div key={step.agent} className="workflow-step">
+              <div className="workflow-step-icon">{step.emoji}</div>
+              {i < workflowDemo.steps.length - 1 && <div className="workflow-step-connector" />}
+              <div className="workflow-step-info">
+                <div className="workflow-step-label">{step.label}</div>
+                <div className="workflow-step-time">{step.time}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="workflow-result">{workflowDemo.result}</div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Client Logos Section ──────────────────────────────────────────────── */
+function ClientLogosSection() {
+  return (
+    <section className="section-wrapper client-logos-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">Trusted By</span>
+          <h2 className="section-title">Enterprises Across Asia</h2>
+        </div>
+        <div className="client-logos-grid">
+          {clientLogos.map((c) => (
+            <div key={c.name} className="client-logo-card">
+              <div className="client-info">
+                <div className="client-name">{c.name}</div>
+                <div className="client-sector">{c.sectorEn}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Team Stats Section ─────────────────────────────────────────────────── */
 function TeamStatsSection() {
   return (
@@ -165,7 +269,7 @@ function IndustriesSection() {
           <h2 className="section-title">Proven Across Sectors</h2>
         </div>
         <div className="industries-row">
-          {industries.map((ind) => (
+          {industriesExtended.map((ind) => (
             <div key={ind.label} className="industry-chip">
               <span className="industry-icon">{ind.icon}</span>
               <span>{ind.labelEn}</span>
@@ -290,6 +394,10 @@ export default function HomePage() {
       <MetricsStrip />
       <TrustBadgesStrip />
       <HowItWorksSection />
+      <RoiStatsSection />
+      <WhyChooseUsSection />
+      <WorkflowDemoSection />
+      <ClientLogosSection />
       <TeamStatsSection />
       <ServicesSection />
       <IndustriesSection />
