@@ -349,6 +349,219 @@ export const workflowSteps = [
   },
 ];
 
+// ── Trust & Credibility ───────────────────────────────────────────────────
+export const trustBadges = [
+  { label: "SOC 2 Compliant", labelZh: "SOC 2 合規", icon: "🛡️" },
+  { label: "GDPR Ready", labelZh: "GDPR 就緒", icon: "🔒" },
+  { label: "99.9% Uptime SLA", labelZh: "99.9% 運行時間 SLA", icon: "⚡" },
+  { label: "24/7 Monitoring", labelZh: "24/7 監控", icon: "📡" },
+];
+
+export const clientLogos = [
+  { name: "TechCorp Asia", sector: "科技" },
+  { name: "Finova Labs", sector: "金融" },
+  { name: "MediChain", sector: "醫療" },
+  { name: "RetailEdge", sector: "零售" },
+  { name: "CloudScale Co", sector: "SaaS" },
+];
+
+// ── Team Stats ──────────────────────────────────────────────────────────────
+export const teamStats = [
+  { value: "50+", label: "Enterprise Clients", labelZh: "企業客戶" },
+  { value: "1,200+", label: "Tasks Completed", labelZh: "任務完成" },
+  { value: "3+ Years", label: "In Production", labelZh: "生產運行" },
+  { value: "TWD 2B+", label: "Cost Saved for Clients", labelZh: "為客戶節省成本" },
+];
+
+// ── How It Works ───────────────────────────────────────────────────────────
+export const processSteps = [
+  {
+    step: "01",
+    title: "Discovery & Assessment",
+    titleZh: "需求探索與評估",
+    desc: "We analyze your business workflows and identify the highest-impact AI automation opportunities.",
+    descZh: "我們分析您的業務流程，找出最高價值的 AI 自動化切入點。",
+  },
+  {
+    step: "02",
+    title: "Agent Design & Config",
+    titleZh: "Agent 設計與配置",
+    desc: "Our team configures and orchestrates custom AI agents tailored to your specific use cases.",
+    descZh: "我們的團隊為您量身配置和協調專屬的 AI Agent。",
+  },
+  {
+    step: "03",
+    title: "Seamless Integration",
+    titleZh: "無縫系統整合",
+    desc: "Agents are integrated into your existing stack with minimal disruption and maximum ROI.",
+    descZh: "Agent 與您現有系統無縫整合，確保最小干擾、最大投資回報。",
+  },
+  {
+    step: "04",
+    title: "Monitor & Optimize",
+    titleZh: "持續監控與優化",
+    desc: "Ongoing performance monitoring and iterative improvements keep your AI running at peak efficiency.",
+    descZh: "持續效能監控與迭代優化，保持 AI 在最高效率運行。",
+  },
+];
+
+// ── Expanded Services ────────────────────────────────────────────────────
+export const servicesExtended = [
+  {
+    emoji: "🤖",
+    title: "AI Agent 開發",
+    titleZh: "AI Agent 開發",
+    desc: "從需求訪談到上線部署，打造符合業務場景的自主 AI 代理系統。",
+    descZh: "從需求訪談到上線部署，打造符合業務場景的自主 AI 代理系統。",
+    popular: false,
+  },
+  {
+    emoji: "🔗",
+    title: "流程自動化",
+    titleZh: "流程自動化",
+    desc: "串接現有系統，把重複性高的人工流程轉為 24/7 自動運作的 AI 管線。",
+    descZh: "串接現有系統，把重複性高的人工流程轉為 24/7 自動運作的 AI 管線。",
+    popular: false,
+  },
+  {
+    emoji: "📊",
+    title: "市場情報分析",
+    titleZh: "市場情報分析",
+    desc: "即時監控產業動態、競爭對手與市場趨勢，提供數據驅動的決策建議。",
+    descZh: "即時監控產業動態、競爭對手與市場趨勢，提供數據驅動的決策建議。",
+    popular: false,
+  },
+  {
+    emoji: "📝",
+    title: "文件與知識庫建置",
+    titleZh: "文件與知識庫建置",
+    desc: "將散落的組織知識結構化，建立可搜尋、可更新的智能知識庫。",
+    descZh: "將散落的組織知識結構化，建立可搜尋、可更新的智能知識庫。",
+    popular: false,
+  },
+  {
+    emoji: "💬",
+    title: "智能客服系統",
+    titleZh: "智能客服系統",
+    desc: "部署 AI 客服代理處理 FAQ、訂單查詢與初步客戶問題，大幅降低人力負擔。",
+    descZh: "部署 AI 客服代理處理 FAQ、訂單查詢與初步客戶問題，大幅降低人力負擔。",
+    popular: true,
+  },
+  {
+    emoji: "🚀",
+    title: "企業 AI 諮詢",
+    titleZh: "企業 AI 諮詢",
+    desc: "評估組織現況，找出最高價值的 AI 應用切入點，制定階段性導入藍圖。",
+    descZh: "評估組織現況，找出最高價值的 AI 應用切入點，制定階段性導入藍圖。",
+    popular: false,
+  },
+  {
+    emoji: "🔍",
+    title: "AI 系統健檢",
+    titleZh: "AI 系統健檢",
+    desc: "對現有 AI 系統進行全面評估，發現瓶頸、風險與優化空間，附帶具體改善方案。",
+    descZh: "對現有 AI 系統進行全面評估，發現瓶頸、風險與優化空間，附帶具體改善方案。",
+    popular: false,
+  },
+  {
+    emoji: "📈",
+    title: "商業智慧儀表板",
+    titleZh: "商業智慧儀表板",
+    desc: "整合多元資料來源，打造即時更新的管理儀表板，讓决策者随时掌握關鍵指標。",
+    descZh: "整合多元資料來源，打造即時更新的管理儀表板，讓决策者随时掌握關鍵指標。",
+    popular: false,
+  },
+  {
+    emoji: "🤝",
+    title: "跨系統 API 整合",
+    titleZh: "跨系統 API 整合",
+    desc: "打通 ERP、CRM、CMS 等企業系統，消除資料孤島，實現端到端流程自動化。",
+    descZh: "打通 ERP、CRM、CMS 等企業系統，消除資料孤島，實現端到端流程自動化。",
+    popular: false,
+  },
+  {
+    emoji: "🧠",
+    title: "AI 教育訓練",
+    titleZh: "AI 教育訓練",
+    desc: "為企業團隊量身打造 AI 工具培訓課程，協助內部人員快速掌握並有效運用 AI。",
+    descZh: "為企業團隊量身打造 AI 工具培訓課程，協助內部人員快速掌握並有效運用 AI。",
+    popular: false,
+  },
+];
+
+// ── Expanded Testimonials ─────────────────────────────────────────────────
+export const testimonialsExtended = [
+  {
+    quote: "將我們的客服回應時間從平均 4 小時縮短到 3 分鐘，客戶滿意度提升 40%。",
+    quoteEn: "Reduced our average customer response time from 4 hours to 3 minutes, improving satisfaction by 40%.",
+    author: "某科技公司 營運總監",
+    authorEn: "COO, Taiwan Tech Company",
+    result: "40% satisfaction boost",
+  },
+  {
+    quote: "過去需要三週的市場報告，現在 Ivy + Mia 在 2 小時內完成，且格式可直接交付客戶。",
+    quoteEn: "Reports that used to take 3 weeks are now delivered in 2 hours by Ivy and Mia — ready for client presentation.",
+    author: "某新創公司 執行長",
+    authorEn: "CEO, Taiwan Startup",
+    result: "93% time saved",
+  },
+  {
+    quote: "Alan 的系統架構設計讓我們的 API 延遲降低 70%，團隊效率大幅提升。",
+    quoteEn: "Alan's system architecture redesign cut our API latency by 70% and dramatically improved team velocity.",
+    author: "某 SaaS 平台 技術長",
+    authorEn: "CTO, B2B SaaS Platform",
+    result: "70% latency reduction",
+  },
+  {
+    quote: "Dva 的任務路由系統讓我們的跨部門協作效率提升 3 倍，終於不用追著人跑了。",
+    quoteEn: "Dva's task routing system tripled our cross-team collaboration efficiency — no more chasing people around.",
+    author: "某電子商務平台 營運總監",
+    authorEn: "Director of Operations, E-commerce Platform",
+    result: "3x collaboration speed",
+  },
+  {
+    quote: "Sophia 的品質把關讓我們的產品規格錯誤率歸零，交付品質大幅提升。",
+    quoteEn: "Sophia's quality assurance reduced our spec errors to zero, dramatically improving delivery quality.",
+    author: "某軟體開發公司 產品總監",
+    authorEn: "Head of Product, Software Company",
+    result: "Zero spec errors",
+  },
+];
+
+// ── FAQ ──────────────────────────────────────────────────────────────────
+export const faqs = [
+  {
+    q: "你們的 AI Agent 和市面上的 SaaS 有什麼不同？",
+    qEn: "How is your AI Agent different from existing SaaS tools?",
+    a: "大多數 SaaS 是單一功能的工具。我們的 Agent 團隊是自主運作的智慧系統，各 Agent 間能即時協作、互相通訊，針對您的複雜業務流程提供端到端的自動化解決方案，而非只是單點功能。",
+    aEn: "Most SaaS tools are single-function. Our Agent team operates autonomously — agents communicate and coordinate in real-time to deliver end-to-end automation for complex business processes, not just point solutions.",
+  },
+  {
+    q: "部署你們的系統需要多長時間？",
+    qEn: "How long does it take to deploy your system?",
+    a: "Explorer 方案通常 1-2 週完成部署。Growth 方案複雜度較高，需 2-4 週。Enterprise 方案視需求而定，一般 1-3 個月可以見到初步成效。我們會在第一週提供詳細時程規劃。",
+    aEn: "Explorer plans typically deploy in 1-2 weeks. Growth plans, being more complex, take 2-4 weeks. Enterprise varies by scope — initial results usually within 1-3 months. We provide a detailed timeline in the first week.",
+  },
+  {
+    q: "你們如何保障資料安全與隱私？",
+    qEn: "How do you ensure data security and privacy?",
+    a: "我們遵循 SOC 2 合規標準，所有資料傳輸均使用 TLS 1.3 加密，資料庫位於 ISO 27001 認證的資料中心。我們也提供私有化部署選項，確保最嚴格的資料主權要求。",
+    aEn: "We follow SOC 2 compliance standards with TLS 1.3 encrypted data transmission and ISO 27001 certified data centers. We also offer private cloud deployments for maximum data sovereignty.",
+  },
+  {
+    q: "如果效果不如預期怎麼辦？",
+    qEn: "What if results don't meet expectations?",
+    a: "Explorer 方案提供 30 天不滿意退款的保證。Growth 方案有 30 天免費試用期。Enterprise 方案我們會在第一階段結束時做成效評估，若未達里程碑，雙方協商調整策略或終止合作。我們在乎的是真正為您創造價值，而非只是賣出方案。",
+    aEn: "Explorer plans come with a 30-day money-back guarantee. Growth plans include a 30-day free trial. For Enterprise, we do milestone reviews at the end of each phase — if targets aren't met, we adjust strategy together or end the engagement. We care about delivering value, not just closing deals.",
+  },
+  {
+    q: "需要具備什麼技術背景才能使用你們的服務？",
+    qEn: "Do we need technical expertise to use your services?",
+    a: "不需要。我們的服務是為企業級客戶設計的，從需求訪談、系統配置到日常使用，都有專屬團隊支援。一般 business user 都能輕鬆上手。我們也提供完整的教育訓練，確保您的團隊能充分駕馭系統。",
+    aEn: "Not at all. Our services are designed for enterprise clients — from onboarding and configuration to day-to-day operations, you have dedicated support. Regular business users find it easy to use. We also provide full training to ensure your team can fully leverage the system.",
+  },
+];
+
 export function getAgentById(id: string) {
   return agents.find((agent) => agent.id === id);
 }
