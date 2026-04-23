@@ -608,7 +608,7 @@ function CaseStudies() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">真實案例</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">來自不同產業的企業如何透過 AI Agent Team 創造價值</p>
+          <p className="text-gray-400 max-w-2xl mx-auto">Real Results Across Industries</p>
         </motion.div>
 
         {/* Case tabs */}
@@ -717,9 +717,11 @@ function FeatureComparison() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
+          <p className="text-sm text-purple-400 uppercase tracking-wider mb-4">AI Agent Team vs. alternatives</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">你們的 AI Agent 和市面上的方案有什麼不同?</h2>
+          <p className="text-emerald-400 font-medium">and the answer is not even close.</p>
         </motion.div>
 
         <motion.div
@@ -783,7 +785,7 @@ function ServicesGrid() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">服務項目</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">12 項核心服務,覆蓋企業 AI 應用全場景</p>
+          <p className="text-gray-400 max-w-2xl mx-auto">From strategy to deployment — we cover the full AI adoption lifecycle.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -953,15 +955,9 @@ function PricingSection() {
           ))}
         </div>
 
-        {/* Annual discount note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-8 text-sm text-gray-400"
-        >
+        <div className="text-center mt-8 text-sm text-gray-400">
           年付方案享 2 個月免費優惠 | Explorer 年費 TWD 150,000 | Growth 年費 TWD 450,000
-        </motion.div>
+        </div>
       </div>
     </section>
   );
