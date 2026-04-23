@@ -4,7 +4,7 @@ import { pricingPlans, comparisonTable, pricingFaqs, type Agent } from "@/data/a
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Pricing | AI Agent Team",
+  title: "Pricing",
   description:
     "Transparent pricing for AI Agent Team — Explorer (TWD 15,000/mo), Growth (TWD 45,000/mo), and Enterprise (custom). Scale with confidence.",
   openGraph: {

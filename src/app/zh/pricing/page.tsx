@@ -4,7 +4,7 @@ import { pricingPlans, comparisonTable, pricingFaqs } from "@/data/agents";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "方案價格 | AI 代理團隊",
+  title: "方案價格",
   description:
     "透明的 AI 代理團隊定價方案 — 探索方案（每月 TWD 15,000）、成長方案（每月 TWD 45,000）、企業方案（客製化報價）。無隱藏費用。",
   openGraph: {
