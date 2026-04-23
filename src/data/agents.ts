@@ -690,3 +690,114 @@ export const faqs = [
 export function getAgentById(id: string) {
   return agents.find((agent) => agent.id === id);
 }
+
+// ── Pricing Page Data ────────────────────────────────────────────────────────
+export const pricingFaqs = [
+  {
+    q: "可以先試用再決定嗎？",
+    qEn: "Can we trial before committing?",
+    a: "Growth 方案提供 30 天免費試用，無需信用卡。若您想先深入了解，我們也提供 30 分鐘的免費顧問諮詢。",
+    aEn: "Growth plans include a 30-day free trial with no credit card required. We also offer a free 30-minute consultation.",
+  },
+  {
+    q: "Explorer 方案適合什麼樣的企業？",
+    qEn: "Who is the Explorer plan for?",
+    a: "適合 1-50 人小型團隊，單一重複性高的流程（如客服、資料輸入、報告生成），想要快速驗證 AI 能否解決特定問題的組織。",
+    aEn: "Explorer is perfect for teams of 1-50 people with a single high-volume repetitive process, looking to quickly validate AI's potential.",
+  },
+  {
+    q: "年付有折扣嗎？",
+    qEn: "Is there a discount for annual billing?",
+    a: "年付方案享有 2 個月免費（相當於 83 折），並可優先獲得我們的年度趨勢報告與產業標竿分析。",
+    aEn: "Annual billing includes 2 months free (equivalent to 83折), plus priority access to our annual trend reports and industry benchmarks.",
+  },
+  {
+    q: "Enterprise 方案如何計價？",
+    qEn: "How does Enterprise pricing work?",
+    a: "根據組織規模和系統整合複雜度報價。200-500 人/3-5 系統：TWD 120,000-180,000/月；500-1000 人/5-10 系統：TWD 180,000-300,000/月；1000 人以上：TWD 300,000-600,000/月。上市櫃公司或特殊需求另議。",
+    aEn: "Pricing is based on organization size and system complexity. 200-500 employees / 3-5 systems: TWD 120,000-180,000/month; 500-1000 / 5-10 systems: TWD 180,000-300,000/month; 1000+ / full integration: TWD 300,000-600,000/month.",
+  },
+];
+
+export const comparisonTable = [
+  {
+    feature: "部署速度",
+    featureEn: "Deployment Speed",
+    explorer: "1-2 週",
+    growth: "2-4 週",
+    enterprise: "1-3 個月",
+    others: "3-6 個月",
+  },
+  {
+    feature: "AI Agent 數量",
+    featureEn: "AI Agents",
+    explorer: "1 個",
+    growth: "3 個（協作）",
+    enterprise: "無限",
+    others: "無",
+  },
+  {
+    feature: "系統整合",
+    featureEn: "System Integration",
+    explorer: "1 個系統",
+    growth: "5 個系統",
+    enterprise: "無限制",
+    others: "有限",
+  },
+  {
+    feature: "支援回應時間",
+    featureEn: "Support Response",
+    explorer: "48 小時",
+    growth: "4 小時",
+    enterprise: "1 小時",
+    others: "1-3 天",
+  },
+  {
+    feature: "成效報告",
+    featureEn: "Impact Reports",
+    explorer: "每週 Email",
+    growth: "每週 + 每月深度",
+    enterprise: "每天 + Executive Summary",
+    others: "每季",
+  },
+  {
+    feature: "Agent 間協作",
+    featureEn: "Agent Orchestration",
+    explorer: "❌",
+    growth: "✅",
+    enterprise: "✅",
+    others: "❌",
+  },
+  {
+    feature: "私有化部署",
+    featureEn: "Private Deployment",
+    explorer: "❌",
+    growth: "❌",
+    enterprise: "✅",
+    others: "昂貴",
+  },
+  {
+    feature: "專屬 CSM",
+    featureEn: "Dedicated CSM",
+    explorer: "❌",
+    growth: "❌",
+    enterprise: "✅",
+    others: "可能需要加價",
+  },
+  {
+    feature: "SLA 運行時間",
+    featureEn: "SLA Uptime",
+    explorer: "99.5%",
+    growth: "99.9%",
+    enterprise: "99.99%",
+    others: "無",
+  },
+  {
+    feature: "每月價格",
+    featureEn: "Monthly Price",
+    explorer: "TWD 15,000",
+    growth: "TWD 45,000",
+    enterprise: "聯絡議價",
+    others: "TWD 5,000-30,000",
+  },
+];
