@@ -39,6 +39,21 @@ body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
   line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure Chinese text wraps properly */
+p, h1, h2, h3, h4, h5, h6, span, div, td, th, li {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Table cells handle long Chinese text */
+td, th {
+  word-break: break-word;
+  white-space: normal;
 }
 
 /* Animations */

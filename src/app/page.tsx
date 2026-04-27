@@ -730,7 +730,7 @@ function FeatureComparison() {
           transition={{ delay: 0.1 }}
           className="overflow-x-auto"
         >
-          <table className="w-full min-w-[600px]">
+          <table className="w-full min-w-[500px] md:min-w-[600px]">
             <thead>
               <tr className="border-b border-[var(--color-border)]">
                 <th className="text-left py-4 px-4 font-semibold text-gray-400">功能維度</th>
