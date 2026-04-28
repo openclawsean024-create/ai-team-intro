@@ -24,7 +24,7 @@ function Hero() {
         <p className="hero-subtitle">Five autonomous agents, perfectly orchestrated</p>
         <div className="hero-cta-row">
           <a href="#services" className="btn-primary">Explore Services</a>
-          <a href="#pricing" className="btn-secondary">View Pricing</a>
+          <a href="/pricing" className="btn-secondary">View Pricing</a>
         </div>
       </div>
     </section>

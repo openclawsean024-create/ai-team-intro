@@ -31,7 +31,7 @@ function Hero() {
         </div>
         <div className="hero-cta-row">
           <a href="#services" className="btn-primary">探索服務項目</a>
-          <a href="#pricing" className="btn-secondary">查看方案價格</a>
+          <a href="/pricing" className="btn-secondary">查看方案價格</a>
         </div>
       </div>
     </section>
@@ -396,7 +396,7 @@ function CtaSection() {
         </p>
         <div className="cta-buttons">
           <a href="mailto:contact@example.com?subject=Free%20Consultation%20Request&body=Hi%20AI%20Team%2C%0A%0AI%27m%20interested%20in%20learning%20more%20about%20your%20AI%20agent%20services.%20Could%20we%20schedule%20a%2030-minute%20call%3F%0A%0ACompany%3A%0AIndustry%3A%0ACurrent%20Challenge%3A%0A" className="btn-primary btn-primary-lg">預約免費顧問諮詢</a>
-          <a href="#pricing" className="btn-secondary-ghost">查看方案</a>
+          <a href="/pricing" className="btn-secondary-ghost">查看方案</a>
         </div>
         <div className="cta-trust-row">
           <span>✓ 無需信用卡</span>

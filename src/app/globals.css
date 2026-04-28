@@ -8,10 +8,12 @@
   /* SPEC v4 Dark Mode Colors */
   --bg-page: #0D0D1A;
   --bg-card: #161625;
+  --card-bg: #161625;
   --primary: #6366F1;
   --accent: #10B981;
   --card-glass: rgba(255, 255, 255, 0.05);
   --card-border: rgba(255, 255, 255, 0.10);
+  --border: rgba(255, 255, 255, 0.10);
   --text-primary: #F0F0F5;
   --text-secondary: #8888AA;
 
