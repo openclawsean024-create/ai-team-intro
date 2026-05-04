@@ -2,7 +2,7 @@ import Link from "next/link";
 import { agents, metrics, servicesExtended, industriesExtended, testimonialsExtended, pricingPlans, trustBadges, teamStats, processSteps, faqs, differentiators, clientLogos, workflowDemo, roiStats, type Agent } from "@/data/agents";
 import Footer from "@/components/Footer";
 
-/* ─── Language Switch (fixed top-right per SPEC v4) ─────────────────── */
+/* ─── Language Switch ────────────────────────────────────────────────────── */
 function LanguageSwitch() {
   return (
     <nav className="lang-switch" aria-label="語言切換">
@@ -13,7 +13,7 @@ function LanguageSwitch() {
   );
 }
 
-/* ─── Hero Section ──────────────────────────────────────────────────────── */
+/* ─── Hero Section ───────────────────────────────────────────────────────── */
 function Hero() {
   return (
     <section className="hero">
@@ -21,7 +21,7 @@ function Hero() {
       <div className="relative z-10">
         <div className="hero-eyebrow">自主 AI · 24/7 運行</div>
         <h1 className="hero-title">AI 代理團隊</h1>
-        <p className="hero-subtitle">五位自主代理，完美協調運作</p>
+        <p className="hero-subtitle">從接單到交付，自主執行，全年無休。</p>
         <div className="hero-stats-row">
           <span>已服務 <strong>50+</strong> 企業客戶</span>
           <span className="hero-dot">·</span>
@@ -38,7 +38,7 @@ function Hero() {
   );
 }
 
-/* ─── Metrics Strip ────────────────────────────────────────────────────── */
+/* ─── Metrics Strip ──────────────────────────────────────────────────────── */
 function MetricsStrip() {
   return (
     <section className="metrics-strip">
@@ -54,7 +54,7 @@ function MetricsStrip() {
   );
 }
 
-/* ─── Agent Card ───────────────────────────────────────────────────────── */
+/* ─── Agent Card ─────────────────────────────────────────────────────────── */
 function AgentCard({ agent, index }: { agent: Agent; index: number }) {
   const delayClass = `card-enter card-enter-${index + 1}`;
 
@@ -64,6 +64,7 @@ function AgentCard({ agent, index }: { agent: Agent; index: number }) {
       className={`agent-card ${agent.id} ${delayClass}`}
       aria-label={`查看 ${agent.nameZh} 的個人檔案`}
     >
+      <div className="card-emoji">{agent.emoji}</div>
       <span className="role-badge">{agent.roleZh}</span>
       <h2 className="card-name">{agent.nameZh}</h2>
       <p className="card-tagline">&ldquo;{agent.taglineZh}&rdquo;</p>
@@ -78,7 +79,7 @@ function AgentCard({ agent, index }: { agent: Agent; index: number }) {
   );
 }
 
-/* ─── Trust Badges Strip ────────────────────────────────────────────────── */
+/* ─── Trust Badges Strip ─────────────────────────────────────────────────── */
 function TrustBadgesStrip() {
   return (
     <section className="trust-strip">
@@ -94,7 +95,7 @@ function TrustBadgesStrip() {
   );
 }
 
-/* ─── How It Works ──────────────────────────────────────────────────────── */
+/* ─── How It Works ───────────────────────────────────────────────────────── */
 function HowItWorksSection() {
   return (
     <section className="section-wrapper">
@@ -120,7 +121,33 @@ function HowItWorksSection() {
   );
 }
 
-/* ─── Why Choose Us ─────────────────────────────────────────────────────── */
+/* ─── ROI Stats ──────────────────────────────────────────────────────────── */
+function RoiStatsSection() {
+  return (
+    <section className="section-wrapper roi-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">可量化的成效</span>
+          <h2 className="section-title">為您的業務帶來實在的數字</h2>
+          <p className="section-desc">
+            數字不說謊。這是我們的客戶在前 90 天量測到的真實成效。
+          </p>
+        </div>
+        <div className="roi-grid">
+          {roiStats.map((r) => (
+            <div key={r.label} className="roi-card">
+              <div className="roi-value">{r.value}</div>
+              <div className="roi-label">{r.label}</div>
+              <div className="roi-note">{r.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Why Choose Us ──────────────────────────────────────────────────────── */
 function WhyChooseUsSection() {
   return (
     <section className="section-wrapper why-choose-section">
@@ -146,46 +173,49 @@ function WhyChooseUsSection() {
   );
 }
 
-/* ─── ROI Stats ─────────────────────────────────────────────────────────── */
-function RoiStatsSection() {
+/* ─── Workflow Demo ──────────────────────────────────────────────────────── */
+function WorkflowDemoSection() {
+  const getAgentColor = (id: string) => {
+    const colors: Record<string, string> = {
+      dva: "#8b6fc0", alan: "#e8956a", sophia: "#5ab8d4", mia: "#E8A0BF", ivy: "#F59E0B"
+    };
+    return colors[id] || "#6366F1";
+  };
+
   return (
-    <section className="roi-section">
-      <div className="roi-inner">
-        <div className="roi-header">
-          <span className="section-eyebrow" style={{ color: "#10B981" }}>可量化的成效</span>
-          <h2 className="section-title" style={{ color: "#fff" }}>為您的業務帶來實在的數字</h2>
+    <section className="section-wrapper workflow-section">
+      <div className="section-inner">
+        <div className="section-header">
+          <span className="section-eyebrow">實際運作範例</span>
+          <h2 className="section-title">{workflowDemo.title}</h2>
+          <p className="section-desc">{workflowDemo.desc}</p>
         </div>
-        <div className="roi-grid">
-          {roiStats.map((r) => (
-            <div key={r.label} className="roi-card">
-              <div className="roi-value">{r.value}</div>
-              <div className="roi-label">{r.label}</div>
-              <div className="roi-note">{r.note}</div>
+        <div className="workflow-timeline">
+          {workflowDemo.steps.map((step, i) => (
+            <div key={i} className="workflow-step">
+              <div className="workflow-step-connector" />
+              <div className="workflow-step-icon" style={{ backgroundColor: getAgentColor(step.agent) }}>
+                {step.emoji}
+              </div>
+              <div className="workflow-step-info">
+                <div className="workflow-step-label">{step.label}</div>
+                <div className="workflow-step-time">{step.time}</div>
+              </div>
+              {i < workflowDemo.steps.length - 1 && (
+                <div className="workflow-arrow">→</div>
+              )}
             </div>
           ))}
         </div>
+        <div className="workflow-result">
+          <span className="workflow-result-badge">✅ {workflowDemo.result}</span>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ─── Team Stats ─────────────────────────────────────────────────────────── */
-function TeamStatsSection() {
-  return (
-    <section className="stats-section">
-      <div className="stats-inner">
-        {teamStats.map((s) => (
-          <div key={s.label} className="stat-item">
-            <span className="stat-value">{s.value}</span>
-            <span className="stat-label">{s.labelZh}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ─── Client Logos ──────────────────────────────────────────────────────── */
+/* ─── Client Logos ───────────────────────────────────────────────────────── */
 function ClientLogosSection() {
   return (
     <section className="section-wrapper client-logos-section">
@@ -213,49 +243,23 @@ function ClientLogosSection() {
   );
 }
 
-/* ─── Workflow Demo ─────────────────────────────────────────────────────── */
-function WorkflowDemoSection() {
-  const getAgentColor = (id: string) => {
-    const colors: Record<string, string> = {
-      dva: "#8b6fc0", alan: "#e8956a", sophia: "#5ab8d4", mia: "#E8A0BF", ivy: "#F59E0B"
-    };
-    return colors[id] || "#6366F1";
-  };
-
+/* ─── Team Stats ─────────────────────────────────────────────────────────── */
+function TeamStatsSection() {
   return (
-    <section className="section-wrapper workflow-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">實際運作範例</span>
-          <h2 className="section-title">{workflowDemo.title}</h2>
-          <p className="section-desc">{workflowDemo.desc}</p>
-        </div>
-        <div className="workflow-timeline">
-          {workflowDemo.steps.map((step, i) => (
-            <div key={i} className="workflow-step">
-              <div className="workflow-step-connector" />
-              <div className="workflow-step-icon" style={{ backgroundColor: getAgentColor(step.agent) }}>
-                {step.emoji}
-              </div>
-              <div className="workflow-step-info">
-                <div className="workflow-step-label">{step.labelEn}</div>
-                <div className="workflow-step-time">{step.time}</div>
-              </div>
-              {i < workflowDemo.steps.length - 1 && (
-                <div className="workflow-arrow">→</div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="workflow-result">
-          <span className="workflow-result-badge">✅ {workflowDemo.result}</span>
-        </div>
+    <section className="stats-section">
+      <div className="stats-inner">
+        {teamStats.map((s) => (
+          <div key={s.label} className="stat-item">
+            <span className="stat-value">{s.value}</span>
+            <span className="stat-label">{s.labelZh}</span>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
-/* ─── Services Section ─────────────────────────────────────────────────── */
+/* ─── Services Section ───────────────────────────────────────────────────── */
 function ServicesSection() {
   return (
     <section id="services" className="section-wrapper">
@@ -282,7 +286,7 @@ function ServicesSection() {
   );
 }
 
-/* ─── Industries Section ──────────────────────────────────────────────── */
+/* ─── Industries Section ─────────────────────────────────────────────────── */
 function IndustriesSection() {
   return (
     <section className="section-wrapper industries-section">
@@ -295,7 +299,7 @@ function IndustriesSection() {
           {industriesExtended.map((ind) => (
             <div key={ind.label} className="industry-chip">
               <span className="industry-icon">{ind.icon}</span>
-              <span>{ind.labelEn}</span>
+              <span>{ind.label}</span>
             </div>
           ))}
         </div>
@@ -304,7 +308,7 @@ function IndustriesSection() {
   );
 }
 
-/* ─── Testimonials Section ───────────────────────────────────────────── */
+/* ─── Testimonials Section ───────────────────────────────────────────────── */
 function TestimonialsSection() {
   return (
     <section className="section-wrapper">
@@ -327,7 +331,7 @@ function TestimonialsSection() {
   );
 }
 
-/* ─── Pricing Section ─────────────────────────────────────────────────── */
+/* ─── Pricing Section ────────────────────────────────────────────────────── */
 function PricingSection() {
   return (
     <section id="pricing" className="section-wrapper pricing-section">
@@ -362,7 +366,7 @@ function PricingSection() {
   );
 }
 
-/* ─── FAQ Section ──────────────────────────────────────────────────────── */
+/* ─── FAQ Section ────────────────────────────────────────────────────────── */
 function FaqSection() {
   return (
     <section className="section-wrapper faq-section">
@@ -384,7 +388,7 @@ function FaqSection() {
   );
 }
 
-/* ─── CTA Section ─────────────────────────────────────────────────────── */
+/* ─── CTA Section ────────────────────────────────────────────────────────── */
 function CtaSection() {
   return (
     <section className="cta-section">
@@ -408,7 +412,7 @@ function CtaSection() {
   );
 }
 
-/* ─── Page ──────────────────────────────────────────────────────────────── */
+/* ─── Page ───────────────────────────────────────────────────────────────── */
 export default function ZhHomePage() {
   return (
     <main>
@@ -417,11 +421,11 @@ export default function ZhHomePage() {
       <MetricsStrip />
       <TrustBadgesStrip />
       <HowItWorksSection />
-      <WhyChooseUsSection />
       <RoiStatsSection />
-      <TeamStatsSection />
-      <ClientLogosSection />
+      <WhyChooseUsSection />
       <WorkflowDemoSection />
+      <ClientLogosSection />
+      <TeamStatsSection />
       <ServicesSection />
       <IndustriesSection />
       <TestimonialsSection />
