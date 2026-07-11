@@ -1,419 +1,119 @@
-import Link from "next/link";
-import { agents, metrics, servicesExtended, industriesExtended, testimonialsExtended, pricingPlans, trustBadges, teamStats, processSteps, faqs, differentiators, clientLogos, workflowDemo, roiStats, type Agent } from "@/data/agents";
-import Footer from "@/components/Footer";
+// AI 團隊介紹 — main page (F-002 模板選擇)
+"use client"
 
-/* ─── Language Switch (fixed top-right per SPEC v4) ─────────────────── */
-function LanguageSwitch() {
-  return (
-    <nav className="lang-switch" aria-label="Language switch">
-      <span className="lang-active">EN</span>
-      <span style={{ color: "rgba(255,255,255,0.3)" }}>/</span>
-      <Link href="/zh" locale="zh">中文</Link>
-    </nav>
-  );
+import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Users, Sparkles, Zap, BookOpen, GraduationCap } from "lucide-react"
+import { TEAM_TEMPLATES, loadTemplate, type TemplateKey } from "@/lib/db"
+
+const TEMPLATE_ICONS: Record<TemplateKey, any> = {
+  saas: Users,
+  content: BookOpen,
+  marketing: Sparkles,
+  cs: Zap,
+  edu: GraduationCap,
 }
 
-/* ─── Hero Section (SPEC v4) ─────────────────────────────────────────── */
-function Hero() {
-  return (
-    <section className="hero">
-      <div className="hero-bg grid-bg" />
-      <div className="relative z-10">
-        <div className="hero-eyebrow">Autonomous AI · 24/7 Operations</div>
-        <h1 className="hero-title">AI Agent Team</h1>
-        <p className="hero-subtitle">Five autonomous agents, perfectly orchestrated</p>
-        <div className="hero-cta-row">
-          <a href="#services" className="btn-primary">Explore Services</a>
-          <a href="/pricing" className="btn-secondary">View Pricing</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Metrics Strip ────────────────────────────────────────────────────── */
-function MetricsStrip() {
-  return (
-    <section className="metrics-strip">
-      <div className="metrics-inner">
-        {metrics.map((m) => (
-          <div key={m.label} className="metric-item">
-            <span className="metric-value">{m.value}</span>
-            <span className="metric-label">{m.label}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ─── Agent Card (SPEC v4) ───────────────────────────────────────────── */
-function AgentCard({ agent, index }: { agent: Agent; index: number }) {
-  const delayClass = `card-enter card-enter-${index + 1}`;
-
-  return (
-    <Link
-      href={`/agents/${agent.id}`}
-      className={`agent-card ${agent.id} ${delayClass}`}
-      aria-label={`View ${agent.name}'s profile`}
-    >
-      <span className="role-badge">{agent.role}</span>
-      <h2 className="card-name">{agent.name}</h2>
-      <p className="card-tagline">&ldquo;{agent.tagline}&rdquo;</p>
-      <div className="card-divider" />
-      <p className="card-section-label">Skills</p>
-      <ul className="skill-chips" role="list">
-        {agent.skills.map((skill) => (
-          <li key={skill.name} className="skill-chip">{skill.name}</li>
-        ))}
-      </ul>
-    </Link>
-  );
-}
-
-/* ─── Trust Badges Strip ────────────────────────────────────────────────── */
-function TrustBadgesStrip() {
-  return (
-    <section className="trust-strip">
-      <div className="trust-inner">
-        <span className="trust-label">Trusted by enterprise clients · Compliant &amp; secure</span>
-        <div className="trust-badges">
-          {trustBadges.map((b) => (
-            <span key={b.label} className="trust-badge">{b.icon} {b.labelZh}</span>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── How It Works Section ──────────────────────────────────────────────── */
-function HowItWorksSection() {
-  return (
-    <section className="section-wrapper">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">How It Works</span>
-          <h2 className="section-title">From Discovery to Deployment in 4 Steps</h2>
-          <p className="section-desc">
-            A proven playbook refined across 50+ enterprise deployments — no guesswork, just results.
-          </p>
-        </div>
-        <div className="process-grid">
-          {processSteps.map((step) => (
-            <div key={step.step} className="process-card">
-              <div className="process-step-num">{step.step}</div>
-              <h3 className="process-title">{step.titleZh}</h3>
-              <p className="process-desc">{step.descZh}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── ROI Stats Section ─────────────────────────────────────────────────── */
-function RoiStatsSection() {
-  return (
-    <section className="section-wrapper roi-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Measurable Impact</span>
-          <h2 className="section-title">The ROI Enterprises Actually See</h2>
-          <p className="section-desc">
-            Numbers don't lie. Here's what our clients measure after the first 90 days.
-          </p>
-        </div>
-        <div className="roi-grid">
-          {roiStats.map((stat) => (
-            <div key={stat.label} className="roi-card">
-              <div className="roi-value">{stat.value}</div>
-              <div className="roi-label">{stat.label}</div>
-              <div className="roi-note">{stat.note}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Why Choose Us (Differentiators) Section ─────────────────────────── */
-function WhyChooseUsSection() {
-  return (
-    <section className="section-wrapper why-choose-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Why Our Team</span>
-          <h2 className="section-title">What Sets Us Apart</h2>
-          <p className="section-desc">
-            Five agents, one mission: to deliver measurable AI outcomes for your business — not just hype.
-          </p>
-        </div>
-        <div className="differentiators-grid">
-          {differentiators.map((d) => (
-            <div key={d.title} className="diff-card">
-              <div className="diff-icon">{d.icon}</div>
-              <h3 className="diff-title">{d.title}</h3>
-              <p className="diff-desc">{d.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Workflow Demo Section ─────────────────────────────────────────────── */
-function WorkflowDemoSection() {
-  return (
-    <section className="section-wrapper workflow-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Live Demo</span>
-          <h2 className="section-title">{workflowDemo.title}</h2>
-          <p className="section-desc">{workflowDemo.desc}</p>
-        </div>
-        <div className="workflow-timeline">
-          {workflowDemo.steps.map((step, i) => (
-            <div key={step.agent} className="workflow-step">
-              <div className="workflow-step-icon">{step.emoji}</div>
-              {i < workflowDemo.steps.length - 1 && <div className="workflow-step-connector" />}
-              <div className="workflow-step-info">
-                <div className="workflow-step-label">{step.label}</div>
-                <div className="workflow-step-time">{step.time}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="workflow-result">{workflowDemo.result}</div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Client Logos Section ──────────────────────────────────────────────── */
-function ClientLogosSection() {
-  return (
-    <section className="section-wrapper client-logos-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Trusted By</span>
-          <h2 className="section-title">Enterprises Across Asia</h2>
-        </div>
-        <div className="client-logos-grid">
-          {clientLogos.map((c) => (
-            <div key={c.name} className="client-logo-card">
-              <div className="client-info">
-                <div className="client-name">{c.name}</div>
-                <div className="client-sector">{c.sectorEn}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Team Stats Section ─────────────────────────────────────────────────── */
-function TeamStatsSection() {
-  return (
-    <section className="stats-section">
-      <div className="stats-inner">
-        {teamStats.map((s) => (
-          <div key={s.label} className="stat-item">
-            <span className="stat-value">{s.value}</span>
-            <span className="stat-label">{s.labelZh}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ─── Services Section (expanded) ───────────────────────────────────────── */
-function ServicesSection() {
-  return (
-    <section id="services" className="section-wrapper">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">What We Do</span>
-          <h2 className="section-title">AI Services for Enterprise</h2>
-          <p className="section-desc">
-            From agent development to full-scale automation — our team delivers production-ready AI solutions that integrate with your existing workflows.
-          </p>
-        </div>
-        <div className="services-grid-expanded">
-          {servicesExtended.map((s) => (
-            <div key={s.title} className={`service-card ${s.popular ? "service-popular" : ""}`}>
-              {s.popular && <span className="service-popular-badge">熱門</span>}
-              <div className="service-emoji">{s.emoji}</div>
-              <h3 className="service-title">{s.titleZh}</h3>
-              <p className="service-desc">{s.descZh}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Industries Section ──────────────────────────────────────────────── */
-function IndustriesSection() {
-  return (
-    <section className="section-wrapper industries-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Industries We Serve</span>
-          <h2 className="section-title">Proven Across Sectors</h2>
-        </div>
-        <div className="industries-row">
-          {industriesExtended.map((ind) => (
-            <div key={ind.label} className="industry-chip">
-              <span className="industry-icon">{ind.icon}</span>
-              <span>{ind.labelEn}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Testimonials Section (expanded) ───────────────────────────────────── */
-function TestimonialsSection() {
-  return (
-    <section className="section-wrapper">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Client Results</span>
-          <h2 className="section-title">What Enterprises Are Saying</h2>
-        </div>
-        <div className="testimonials-grid">
-          {testimonialsExtended.map((t, i) => (
-            <div key={i} className="testimonial-card">
-              <div className="testimonial-result">{t.result}</div>
-              <p className="testimonial-quote">&ldquo;{t.quoteEn}&rdquo;</p>
-              <p className="testimonial-author">— {t.authorEn}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Pricing Section ─────────────────────────────────────────────────── */
-function PricingSection() {
-  return (
-    <section id="pricing" className="section-wrapper pricing-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">Transparent Pricing</span>
-          <h2 className="section-title">Plans That Scale With You</h2>
-          <p className="section-desc">
-            All plans include our full agent team. Pricing scales with your usage — no hidden fees.
-          </p>
-        </div>
-        <div className="pricing-grid">
-          {pricingPlans.map((plan) => (
-            <div key={plan.nameEn} className={`pricing-card ${plan.highlight ? "pricing-highlight" : ""}`}>
-              {plan.highlight && <div className="pricing-badge">Most Popular</div>}
-              <div className="pricing-name">{plan.nameEn}</div>
-              <div className="pricing-price">{plan.priceEn}{plan.periodEn}</div>
-              <p className="pricing-desc">{plan.descEn}</p>
-              <ul className="pricing-features">
-                {plan.featuresEn.map((f) => (
-                  <li key={f} className="pricing-feature">✓ {f}</li>
-                ))}
-              </ul>
-              <a href="mailto:contact@example.com" className={`pricing-cta ${plan.highlight ? "btn-primary" : "btn-secondary-outline"}`}>
-                {plan.ctaEn}
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── FAQ Section ──────────────────────────────────────────────────────── */
-function FaqSection() {
-  return (
-    <section className="section-wrapper faq-section">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-eyebrow">FAQ</span>
-          <h2 className="section-title">Frequently Asked Questions</h2>
-        </div>
-        <div className="faq-grid">
-          {faqs.map((faq, i) => (
-            <div key={i} className="faq-card">
-              <h3 className="faq-q">{faq.q}</h3>
-              <p className="faq-a">{faq.a}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── CTA Section ─────────────────────────────────────────────────────── */
-function CtaSection() {
-  return (
-    <section className="cta-section">
-      <div className="cta-inner">
-        <div className="cta-eyebrow">Ready to transform your business?</div>
-        <h2 className="cta-title">Start Your AI Journey Today</h2>
-        <p className="cta-desc">
-          Schedule a free 30-minute consultation. No commitment — just honest advice on where AI can create the most value for your organization.
-        </p>
-        <div className="cta-buttons">
-          <a href="mailto:contact@example.com?subject=Free%20Consultation%20Request&body=Hi%20AI%20Team%2C%0A%0AI%27m%20interested%20in%20learning%20more%20about%20your%20AI%20agent%20services.%20Could%20we%20schedule%20a%2030-minute%20call%3F%0A%0ACompany%3A%0AIndustry%3A%0ACurrent%20Challenge%3A%0A" className="btn-primary btn-primary-lg">預約免費顧問諮詢</a>
-          <a href="#pricing" className="btn-secondary-ghost">查看方案</a>
-        </div>
-        <div className="cta-trust-row">
-          <span>✓ 無需信用卡</span>
-          <span>✓ 30 分鐘深度顧問</span>
-          <span>✓ 客製化建議報告</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Page ──────────────────────────────────────────────────────────────── */
 export default function HomePage() {
+  const router = useRouter()
+  const [loading, setLoading] = useState<TemplateKey | null>(null)
+
+  async function handleSelectTemplate(key: TemplateKey) {
+    if (!confirm(`載入「${TEAM_TEMPLATES[key].name}」模板？這會新增 ${TEAM_TEMPLATES[key].roles.length} 個 AI 角色到你的團隊。`)) return
+    setLoading(key)
+    try {
+      await loadTemplate(key)
+      router.push("/team")
+    } catch (err) {
+      alert("載入失敗：" + (err instanceof Error ? err.message : "未知錯誤"))
+      setLoading(null)
+    }
+  }
+
   return (
-    <main>
-      <LanguageSwitch />
-      <Hero />
-      <MetricsStrip />
-      <TrustBadgesStrip />
-      <HowItWorksSection />
-      <RoiStatsSection />
-      <WhyChooseUsSection />
-      <WorkflowDemoSection />
-      <ClientLogosSection />
-      <TeamStatsSection />
-      <ServicesSection />
-      <IndustriesSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <FaqSection />
-      <CtaSection />
-      <section aria-label="Team members">
-        <div className="team-grid">
-          {agents.map((agent, i) => (
-            <AgentCard key={agent.id} agent={agent} index={i} />
-          ))}
+    <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
+      <nav className="border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+              <Users className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-semibold tracking-tight">AI 團隊介紹</span>
+          </Link>
+          <Link href="/team" className="text-sm text-zinc-600 hover:text-zinc-900">我的團隊</Link>
+        </div>
+      </nav>
+
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+            建立你的
+            <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+              AI 團隊
+            </span>
+          </h1>
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+            從 5 種預載模板開始，快速建立 5-10 個 AI 角色
+            <br />
+            追蹤 KPI、串接工作流、計算成本
+          </p>
+        </div>
+
+        <h2 className="text-2xl font-bold mb-6">選擇團隊模板</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(Object.keys(TEAM_TEMPLATES) as TemplateKey[]).map((key) => {
+            const t = TEAM_TEMPLATES[key]
+            const Icon = TEMPLATE_ICONS[key]
+            return (
+              <button
+                key={key}
+                onClick={() => handleSelectTemplate(key)}
+                disabled={loading !== null}
+                className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-6 text-left hover:shadow-xl transition disabled:opacity-50"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="text-4xl">{t.icon}</div>
+                  <span className="text-xs text-zinc-500">{t.roles.length} 個 AI 角色</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{t.name}</h3>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t.description}</p>
+                <div className="space-y-2 mb-4">
+                  {t.roles.slice(0, 3).map((r, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm">
+                      <span className="text-lg">{r.icon}</span>
+                      <span className="font-medium">{r.name}</span>
+                      <span className="text-xs text-zinc-500 truncate">{r.role}</span>
+                    </div>
+                  ))}
+                  {t.roles.length > 3 && (
+                    <div className="text-xs text-zinc-500">+{t.roles.length - 3} 個更多角色</div>
+                  )}
+                </div>
+                <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+                  {loading === key ? "載入中…" : (<><Icon className="w-4 h-4" />選擇此模板</>)}
+                </div>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-sm text-zinc-500 mb-4">或</p>
+          <Link
+            href="/team"
+            className="inline-block px-6 py-3 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900"
+          >
+            從空白開始，手動新增角色
+          </Link>
         </div>
       </section>
-      <Footer lang="en" />
+
+      <footer className="border-t border-zinc-200 dark:border-zinc-800 py-8 mt-16">
+        <div className="max-w-6xl mx-auto px-6 text-center text-sm text-zinc-500">
+          © 2026 AI 團隊介紹 · Sean Li · 純前端 IndexedDB · 100% 隱私
+        </div>
+      </footer>
     </main>
-  );
+  )
 }

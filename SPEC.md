@@ -2,8 +2,9 @@
 
 > 版本：v2.2.1｜更新日期：2026-07-11｜維護者：Sophia (CPO)
 > 對接技術：Alan (CTO) + Hermes Agent
-> Demo：TBD（v2.2.1 規格階段，待 Sprint 1 部署）
+> **Demo**：https://ai-team-intro.vercel.app ⭐ Vercel Production 2026-07-11 上線
 > 原始碼：https://github.com/openclawsean024-create/ai-team-intro
+> **§15 商業化評分**：**80 / 100**（中高水平 — 純前端 IndexedDB + 5 種團隊模板 + KPI 追蹤）
 
 ---
 
