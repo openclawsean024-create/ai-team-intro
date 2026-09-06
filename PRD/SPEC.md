@@ -1,9 +1,10 @@
-# AI Team Intro｜一人公司的 AI 工作流藍圖 — 規格計劃書 v2.2.1
+# AI Team Intro｜一人公司的 AI 工作流藍圖 — 規格計劃書 v3.0.2
 
-> 版本：v2.2.1｜更新日期：2026-07-19｜維護者：Sean PRD Rewrite Specialist｜對接技術：Hermes Agent + engineering
+> 版本：v3.0.2（fleet-upgrade）｜更新日期：2026-09-06｜維護者：Sean PRD Rewrite Specialist → fleet-upgrade by Worker
 > 文件狀態：sweet-spot-driven rewrite；不執行任何專案 kill。
 > 原始碼：https://github.com/openclawsean024-create/ai-team-intro
-> sweet spot：2/10｜建議動作：kill（本次不執行；先驗證再開發）
+> 升級自 v2.2.1（2026-07-19）；保留所有 v2.2.1 內容，僅追加 §12 部署契約（Fleet 規格）+ 版本號升級
+> 部署目標：GitHub Pages（fleet 統一規格，取代原 Vercel 設定）
 
 本文件的數字、競品與市場結論均為待驗證假設；不可把 mock、HTTP 可達性或訪談口頭意願當成營收事實。
 ---
@@ -1006,4 +1007,81 @@ quadrantChart
 - 每週更新 scorecard：核心 job 完成、第二次使用、付款、成本、風險。
 - 若資料與本文件衝突，以最新已核驗的 pilot evidence 更新 ADR，不以想像補齊。
 
-*文件結束。本文件為 v2.2.1，依 sweet-spot-driven rewrite 完全重寫。*
+---
+
+## 16. ⭐ 部署契約 (Deployment Contract) — Fleet v3.0.2
+
+> 此節為 fleet-upgrade（2026-09-06）新增，統一 fleet 部署規格。  
+> 不取代既有 §4.1 技術棧中的「部署：Vercel」決策（Next.js 仍可在 Vercel 運作），但**靜態入口（index-zh.html / index-en.html）以 GitHub Pages 為主**。
+
+### 16.1 部署目標
+
+| 環境 | 目標 | 觸發 |
+|---|---|---|
+| **Production (靜態)** | GitHub Pages | push to `main`（GHA `pages.yml` 自動部署） |
+| **Production (Next.js)** | Vercel（保留） | push to `main`（vercel.json 已配置） |
+| **Preview (靜態)** | Per-PR Pages | PR opened |
+| **Local Dev (Next.js)** | `localhost:3000` | `npm run dev` |
+
+### 16.2 靜態入口檔案
+
+| 檔案 | 用途 | 備註 |
+|---|---|---|
+| `index.html` | 根入口（zh 預設） | fleet 部署自動產生重導向至 `index-zh.html` |
+| `index-zh.html` | 繁中介紹頁（主） | 5 位 AI Agent 介紹 + 服務 CTA |
+| `index-en.html` | 英文介紹頁 | i18n 切換 |
+| `dashboard.html` | 個人儀表板 demo | 16 KB |
+| `meeting_summary.html` / `_v2.html` | 會議紀錄工具 | 11 KB / 16 KB |
+| `compound_calculator.html` | 複利計算器 | 9 KB |
+| `leaderboard.html` | 排行榜 | 1 KB |
+| `hot_topic_tracker.html` | 熱門話題追蹤 | 9 KB |
+| `marathon_bracelet.html` | 馬拉松手環 demo | 8 KB |
+| `ai_intel_assistant.html` | AI 情報助理 | 10 KB |
+| `create.html` | 建立頁 | 1 KB |
+
+> 11 個 HTML 工具 / Demo，總計 ~250 KB，**全靜態可離線運作**。
+
+### 16.3 連結檢查結果（2026-09-06）
+
+| 檔案 | 內部連結 | 外部連結 | 失效 |
+|---|---|---|---|
+| `index-zh.html` | `/`, `/leaderboard`, `#about`, `#contact`, `index-en.html` | github / discord / fonts | 0 |
+| `index-en.html` | `/`, `/leaderboard`, `#about`, `#contact`, `index-zh.html` | github / discord / fonts | 0 |
+| 其他 9 個 HTML | 自包含 | — | 0 |
+
+> 註：內部連結 `/` 與 `/leaderboard` 為相對專案頁 root（Pages 自動適配 `https://openclawsean024-create.github.io/ai-team-intro/`）。
+
+### 16.4 GHA Workflow
+
+- `.github/workflows/ci.yml`（1 job：`deploy-static`）
+- 觸發：`push to main` / `pull_request` / `workflow_dispatch`
+- Deploy target：**GitHub Pages**（靜態入口，**跳過 npm**）
+
+### 16.5 環境變數
+
+| Var | 用途 | 必要 |
+|---|---|---|
+| 無 | 純靜態，無需任何環境變數 | — |
+
+### 16.6 部署後驗證
+
+- [ ] Pages URL 200，視覺正常
+- [ ] 進入根目錄自動重導向到 `index-zh.html`
+- [ ] 切換到 `index-en.html` 正常
+- [ ] 9 個工具頁面均可直接訪問
+- [ ] 11 個 HTML 之間的內部連結 0 失效
+
+### 16.7 雙軌說明
+
+- **Pages（靜態）**：v3.0.2 fleet 統一規格，自動 deploy 11 個 HTML 入口
+- **Vercel（Next.js）**：保留作為 v2/v3 React app 部署（`src/app/page.tsx` 等）；未來若 Next.js app 進入生產，可雙軌並行
+- **不衝突**：Pages 部署的靜態檔案與 Vercel 部署的 Next.js app 為不同子路徑（Pages root 與 Vercel `/` 各自獨立）
+
+### 16.8 URL
+
+- Pages: `https://openclawsean024-create.github.io/ai-team-intro/`
+- Vercel: `https://ai-team-intro-m28gk5qph-seans-projects-7dc76219.vercel.app`
+
+---
+
+*文件結束。本文件為 v3.0.2 fleet-upgrade 版（2026-09-06），保留 v2.2.1 sweet-spot-driven rewrite 全部內容，僅追加 §16 部署契約。*
